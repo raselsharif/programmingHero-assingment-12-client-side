@@ -8,6 +8,7 @@ import Login from "../Pages/Login/Login";
 import AssetsEmployee from "../Pages/Dashboard/Employee/AssetsEmployee/AssetsEmployee";
 import RequestAssetEmployee from "../Pages/Dashboard/Employee/RequestAssetEmployee/RequestAssetEmployee";
 import CustomRequestEmployee from "../Pages/Dashboard/Employee/CustomRequestEmployee/CustomRequestEmployee";
+import MyTeam from "../Pages/Dashboard/Employee/MyTeam/MyTeam";
 
 const router = createBrowserRouter([
   {
@@ -47,6 +48,10 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/request-custom",
         element: <CustomRequestEmployee />,
+      },
+      {
+        path: "/dashboard/my-team",
+        element: <MyTeam />,
       },
     ],
   },
