@@ -6,6 +6,7 @@ import JoinEmployee from "../Pages/JoinEmployee/JoinEmployee";
 import JoinAdmin from "../Pages/JoinAdmin/JoinAdmin";
 import Login from "../Pages/Login/Login";
 import AssetsEmployee from "../Pages/Dashboard/Employee/AssetsEmployee/AssetsEmployee";
+import RequestAssetEmployee from "../Pages/Dashboard/Employee/RequestAssetEmployee/RequestAssetEmployee";
 
 const router = createBrowserRouter([
   {
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/assets-employee",
         element: <AssetsEmployee />,
+      },
+      {
+        path: "/dashboard/request-assets",
+        element: <RequestAssetEmployee />,
       },
     ],
   },

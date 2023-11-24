@@ -98,7 +98,7 @@ const AssetsEmployee = ({ children }) => {
                       <Typography
                         variant="small"
                         color="blue-gray"
-                        className="font-normal"
+                        className="font-normal capitalize"
                       >
                         {name}
                       </Typography>
@@ -107,7 +107,7 @@ const AssetsEmployee = ({ children }) => {
                       <Typography
                         variant="small"
                         color="blue-gray"
-                        className="font-normal"
+                        className="font-normal capitalize"
                       >
                         {type}
                       </Typography>
@@ -134,7 +134,11 @@ const AssetsEmployee = ({ children }) => {
                       <Typography
                         variant="small"
                         color="blue-gray"
-                        className="font-normal"
+                        className={
+                          status === "pending"
+                            ? "text-red-500 capitalize"
+                            : "text-green-500 capitalize"
+                        }
                       >
                         {status}
                       </Typography>

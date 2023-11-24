@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export function CarouselWithContent() {
   return (
-    <Carousel className="rounded-xl mt-2" loop="true">
+    <Carousel className="rounded-xl mt-2" loop={true}>
       <div className="relative h-[500px] w-full">
         <img
           src="https://tinyurl.com/ns69a5k8"
