@@ -14,9 +14,7 @@ import {
   ChevronDownIcon,
   Bars2Icon,
 } from "@heroicons/react/24/solid";
-import EmployeeMenu from "./EmployeeMenu";
 import NormalMenu from "./NormalMenu";
-import AdminMenu from "./AdminMenu";
 import { Link } from "react-router-dom";
  
 // profile menu component
@@ -65,10 +63,10 @@ function ProfileMenu() {
 
 
 function NavList() {
-    const user = 'admin'
+    const user = true;
     return (
         <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 xl:flex-row xl:items-center">
-        {user === "admin" ? <AdminMenu/>: user === "employee" ? <EmployeeMenu/> :<NormalMenu></NormalMenu>}
+       {!user ? <NormalMenu/> : ""}
   </ul>
   );
   }
@@ -86,7 +84,7 @@ export function ComplexNavbar() {
   }, []);
  
   return (
-    <Navbar className="mx-auto max-w-screen-xl p-2 xl:rounded-full xl:pl-6">
+    <Navbar className="mx-auto max-w-screen-2xl p-2 xl:rounded-full xl:pl-6">
       <div className="relative mx-auto flex items-center justify-between text-blue-gray-900">
         <Typography
           as="a"
@@ -98,7 +96,7 @@ export function ComplexNavbar() {
         <div className="hidden xl:block">
           <NavList />
         </div>
-        <IconButton
+        {user ? <IconButton
           size="sm"
           color="blue-gray"
           variant="text"
@@ -106,7 +104,7 @@ export function ComplexNavbar() {
           className="ml-auto mr-2 xl:hidden"
         >
           <Bars2Icon className="h-6 w-6" />
-        </IconButton>
+        </IconButton>:""}
             {
          user ? <ProfileMenu /> : <Button size="sm" variant="text">
              <span>Log In</span>
@@ -118,6 +116,7 @@ export function ComplexNavbar() {
       <MobileNav open={isNavOpen}>
         <NavList />
       </MobileNav>
+     
     </Navbar>
   );
 }
