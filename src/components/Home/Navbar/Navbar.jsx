@@ -10,26 +10,21 @@ import {
   Avatar,
   IconButton,
 } from "@material-tailwind/react";
-import {
-  ChevronDownIcon,
-  Bars2Icon,
-} from "@heroicons/react/24/solid";
+import { ChevronDownIcon, Bars2Icon } from "@heroicons/react/24/solid";
 import NormalMenu from "./NormalMenu";
 import { Link } from "react-router-dom";
- 
+
 // profile menu component
-const profileMenuItems = <>
-<Link to={'/dashboard'}>
-Dashboard
-</Link>
-<Link>
-Log out
-</Link>
-</>
- 
+const profileMenuItems = (
+  <>
+    <Link to={"/dashboard"}>Dashboard</Link>
+    <Link>Log out</Link>
+  </>
+);
+
 function ProfileMenu() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
- 
+
   return (
     <Menu open={isMenuOpen} handler={setIsMenuOpen} placement="bottom-end">
       <MenuHandler>
@@ -54,35 +49,33 @@ function ProfileMenu() {
         </Button>
       </MenuHandler>
       <MenuList className="flex flex-col gap-3 px-4 py-2">
-       {profileMenuItems}
+        {profileMenuItems}
       </MenuList>
     </Menu>
   );
 }
 
-
-
 function NavList() {
-    const user = true;
-    return (
-        <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 xl:flex-row xl:items-center">
-       {!user ? <NormalMenu/> : ""}
-  </ul>
+  const user = false;
+  return (
+    <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 xl:flex-row xl:items-center">
+      {!user ? <NormalMenu /> : ""}
+    </ul>
   );
-  }
- 
+}
+
 export function ComplexNavbar() {
   const [isNavOpen, setIsNavOpen] = React.useState(false);
- const user =true;
+  const user = false;
   const toggleIsNavOpen = () => setIsNavOpen((cur) => !cur);
- 
+
   React.useEffect(() => {
     window.addEventListener(
       "resize",
-      () => window.innerWidth >= 960 && setIsNavOpen(false),
+      () => window.innerWidth >= 960 && setIsNavOpen(false)
     );
   }, []);
- 
+
   return (
     <Navbar className="mx-auto max-w-screen-2xl p-2 xl:rounded-full xl:pl-6">
       <div className="relative mx-auto flex items-center justify-between text-blue-gray-900">
@@ -91,32 +84,37 @@ export function ComplexNavbar() {
           href="#"
           className="mr-4 ml-2 cursor-pointer py-1.5 font-medium"
         >
-         logo
+          logo
         </Typography>
         <div className="hidden xl:block">
           <NavList />
         </div>
-        {user ? <IconButton
-          size="sm"
-          color="blue-gray"
-          variant="text"
-          onClick={toggleIsNavOpen}
-          className="ml-auto mr-2 xl:hidden"
-        >
-          <Bars2Icon className="h-6 w-6" />
-        </IconButton>:""}
-            {
-         user ? <ProfileMenu /> : <Button size="sm" variant="text">
-             <span>Log In</span>
-        </Button>
-            }
-        
-        
+        {user ? (
+          <IconButton
+            size="sm"
+            color="blue-gray"
+            variant="text"
+            onClick={toggleIsNavOpen}
+            className="ml-auto mr-2 xl:hidden"
+          >
+            <Bars2Icon className="h-6 w-6" />
+          </IconButton>
+        ) : (
+          ""
+        )}
+        {user ? (
+          <ProfileMenu />
+        ) : (
+          <Link to={"/login"}>
+            <Button size="sm" variant="text">
+              <span>Log In</span>
+            </Button>
+          </Link>
+        )}
       </div>
       <MobileNav open={isNavOpen}>
         <NavList />
       </MobileNav>
-     
     </Navbar>
   );
 }

@@ -1,4 +1,4 @@
-import SectionHeader from "../../SectionHeader/SectionHeader";
+import SectionHeader from "../../common/SectionHeader/SectionHeader";
 
 const About = () => {
   return (

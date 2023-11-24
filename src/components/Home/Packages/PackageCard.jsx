@@ -26,7 +26,7 @@ function CheckIcon() {
   );
 }
 
-export function PricingCard() {
+export function PricingCard({ price, name, employee }) {
   return (
     <Card color="white" variant="gradient" className="w-full max-w-[20rem] p-8">
       <CardHeader
@@ -40,15 +40,15 @@ export function PricingCard() {
           color="gray"
           className="font-normal uppercase"
         >
-          standard
+          {name}
         </Typography>
         <Typography
           variant="h1"
           color="gray"
           className="mt-6 flex justify-center gap-1 text-7xl font-normal"
         >
-          <span className="mt-2 text-4xl">$</span>29{" "}
-          <span className="self-end text-4xl">/mo</span>
+          <span className="mt-2 text-4xl">$</span>
+          {price} <span className="self-end text-4xl">/mo</span>
         </Typography>
       </CardHeader>
       <CardBody className="p-0">
@@ -57,7 +57,7 @@ export function PricingCard() {
             <span className="rounded-full border border-white/20 bg-white/20 p-1">
               <CheckIcon />
             </span>
-            <Typography className="font-normal">5 team members</Typography>
+            <Typography className="font-normal">{employee}</Typography>
           </li>
           <li className="flex items-center gap-4">
             <span className="rounded-full border border-white/20 bg-white/20 p-1">

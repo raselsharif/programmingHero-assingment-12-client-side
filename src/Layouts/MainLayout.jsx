@@ -1,14 +1,16 @@
 import { Outlet } from "react-router-dom";
-import { ComplexNavbar } from "../components/common/Home/Navbar/Navbar";
-
+import { ComplexNavbar } from "../components/Home/Navbar/Navbar";
+import { FooterWithLogo } from "../components/common/Footer/Footer";
+import Container from "../components/common/Container/Container";
 
 const MainLayout = () => {
-    return (
-        <div>
-            <ComplexNavbar/>
-            <Outlet/>
-        </div>
-    );
+  return (
+    <Container>
+      <ComplexNavbar />
+      <Outlet />
+      <FooterWithLogo />
+    </Container>
+  );
 };
 
 export default MainLayout;

@@ -1,6 +1,6 @@
 import { Carousel, Typography, Button } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
- 
+
 export function CarouselWithContent() {
   return (
     <Carousel className="rounded-xl mt-2" loop="true">
@@ -17,14 +17,14 @@ export function CarouselWithContent() {
               color="white"
               className="mb-4 text-3xl md:text-4xl lg:text-5xl"
             >
-             Join as HR/Admin
+              Join as HR/Admin
             </Typography>
             <div className="flex justify-center gap-2">
-             <Link to={''}>
-             <Button size="lg" color="teal">
-                click to join
-              </Button>
-             </Link>
+              <Link to={"/join-admin"}>
+                <Button size="lg" color="teal">
+                  click to join
+                </Button>
+              </Link>
             </div>
           </div>
         </div>
@@ -42,14 +42,15 @@ export function CarouselWithContent() {
               color="white"
               className="mb-4 text-3xl md:text-4xl lg:text-5xl"
             >
-            Join as a Employee
+              Join as a Employee
             </Typography>
             <div className="flex gap-2">
-             ,<Link>
-             <Button size="lg" color="brown">
-               Click to join
-              </Button>
-             </Link>
+              ,
+              <Link to={"/join-employee"}>
+                <Button size="lg" color="brown">
+                  Click to join
+                </Button>
+              </Link>
             </div>
           </div>
         </div>
