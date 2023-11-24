@@ -33,7 +33,7 @@ const RequestAssetEmployee = ({ children }) => {
   const handleOpen = () => setOpen(!open);
   return (
     <div>
-      <SectionHeader heading={"My Assets"} />
+      <SectionHeader heading={"Request for an asset"} />
       <div className="mt-10  flex justify-center gap-5">
         <div>
           <Input variant="standard" label="Search By Name" />

@@ -7,6 +7,7 @@ import JoinAdmin from "../Pages/JoinAdmin/JoinAdmin";
 import Login from "../Pages/Login/Login";
 import AssetsEmployee from "../Pages/Dashboard/Employee/AssetsEmployee/AssetsEmployee";
 import RequestAssetEmployee from "../Pages/Dashboard/Employee/RequestAssetEmployee/RequestAssetEmployee";
+import CustomRequestEmployee from "../Pages/Dashboard/Employee/CustomRequestEmployee/CustomRequestEmployee";
 
 const router = createBrowserRouter([
   {
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/request-assets",
         element: <RequestAssetEmployee />,
+      },
+      {
+        path: "/dashboard/request-custom",
+        element: <CustomRequestEmployee />,
       },
     ],
   },
