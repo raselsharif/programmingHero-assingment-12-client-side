@@ -1,4 +1,5 @@
 import { Card, Input, Button, Typography } from "@material-tailwind/react";
+import GoogleLoginButton from "../../components/common/GoogleLoginButton/GoogleLoginButton";
 
 const JoinEmployee = () => {
   return (
@@ -62,6 +63,7 @@ const JoinEmployee = () => {
           </a>
         </Typography>
       </form>
+      <GoogleLoginButton />
     </Card>
   );
 };
