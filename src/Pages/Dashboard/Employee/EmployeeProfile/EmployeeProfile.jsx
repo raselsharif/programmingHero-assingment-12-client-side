@@ -1,5 +1,5 @@
 import { Button } from "@material-tailwind/react";
-import SectionHeader from "../../../components/common/SectionHeader/SectionHeader";
+import SectionHeader from "../../../../components/common/SectionHeader/SectionHeader";
 
 const EmployeeProfile = () => {
   return (

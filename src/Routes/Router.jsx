@@ -9,7 +9,9 @@ import AssetsEmployee from "../Pages/Dashboard/Employee/AssetsEmployee/AssetsEmp
 import RequestAssetEmployee from "../Pages/Dashboard/Employee/RequestAssetEmployee/RequestAssetEmployee";
 import CustomRequestEmployee from "../Pages/Dashboard/Employee/CustomRequestEmployee/CustomRequestEmployee";
 import MyTeam from "../Pages/Dashboard/Employee/MyTeam/MyTeam";
-import EmployeeProfile from "../Pages/Dashboard/EmployeeProfile/EmployeeProfile";
+import EmployeeProfile from "../Pages/Dashboard/Employee/EmployeeProfile/EmployeeProfile";
+import AdminAssetList from "../Pages/Dashboard/Admin/AdminAssetList/AdminAssetList";
+import AdminAddAsset from "../Pages/Dashboard/Admin/AdminAddAsset/AdminAddAsset";
 
 const router = createBrowserRouter([
   {
@@ -38,6 +40,16 @@ const router = createBrowserRouter([
     path: "/dashboard",
     element: <Dashboard />,
     children: [
+      // Admin Routes
+      {
+        path: "/dashboard/admin-asset-list",
+        element: <AdminAssetList />,
+      },
+      {
+        path: "/dashboard/admin-add-asset",
+        element: <AdminAddAsset />,
+      },
+      // EmployeeRoutes
       {
         path: "/dashboard/assets-employee",
         element: <AssetsEmployee />,
