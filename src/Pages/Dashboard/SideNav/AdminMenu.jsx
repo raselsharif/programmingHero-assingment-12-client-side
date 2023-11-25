@@ -27,7 +27,7 @@ const AdminMenu = () => {
         My Employee List
       </NavLink>
       <NavLink
-        to={"/join-employee"}
+        to={"/dashboard/admin-add-employee"}
         className={({ isActive }) =>
           isActive
             ? "flex gap-2 items-center bg-black text-white transition-all duration-300 px-3 py-1 rounded-md font-medium"

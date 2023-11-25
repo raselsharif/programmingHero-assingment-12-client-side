@@ -15,6 +15,8 @@ import AdminAddAsset from "../Pages/Dashboard/Admin/AdminAddAsset/AdminAddAsset"
 import AdminRequestsList from "../Pages/Dashboard/Admin/AdminRequestsList/AdminRequestsList";
 import CustomRequestList from "../Pages/Dashboard/Admin/CustomRequestList/CustomRequestList";
 import AdminEmployeeList from "../Pages/Dashboard/Admin/AdminEmployeeList/AdminEmployeeList";
+import AdminAddEmployee from "../Pages/Dashboard/Admin/AdminAddEmployee/AdminAddEmployee";
+import Packages from "../components/Home/Packages/Packages";
 
 const router = createBrowserRouter([
   {
@@ -36,6 +38,10 @@ const router = createBrowserRouter([
       {
         path: "/join-admin",
         element: <JoinAdmin />,
+      },
+      {
+        path: "/packages",
+        element: <Packages />,
       },
     ],
   },
@@ -63,6 +69,10 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/admin-all-employee",
         element: <AdminEmployeeList />,
+      },
+      {
+        path: "/dashboard/admin-add-employee",
+        element: <AdminAddEmployee />,
       },
       // EmployeeRoutes
       {
