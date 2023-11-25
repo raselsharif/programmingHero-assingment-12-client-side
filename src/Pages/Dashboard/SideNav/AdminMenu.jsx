@@ -16,7 +16,7 @@ const AdminMenu = () => {
         Home
       </NavLink>
       <NavLink
-        to={"/"}
+        to={"/dashboard/admin-all-employee"}
         className={({ isActive }) =>
           isActive
             ? "flex gap-2 items-center bg-black text-white transition-all duration-300 px-3 py-1 rounded-md font-medium"
@@ -60,7 +60,7 @@ const AdminMenu = () => {
         Add an Asset
       </NavLink>
       <NavLink
-        to={"/join-employee"}
+        to={"/dashboard/admin-requests"}
         className={({ isActive }) =>
           isActive
             ? "flex gap-2 items-center bg-black text-white transition-all duration-300 px-3 py-1 rounded-md font-medium"
@@ -71,7 +71,7 @@ const AdminMenu = () => {
         All Request
       </NavLink>
       <NavLink
-        to={"/join-employee"}
+        to={"/dashboard/custom-requests"}
         className={({ isActive }) =>
           isActive
             ? "flex gap-2 items-center bg-black text-white transition-all duration-300 px-3 py-1 rounded-md font-medium"

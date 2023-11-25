@@ -12,6 +12,9 @@ import MyTeam from "../Pages/Dashboard/Employee/MyTeam/MyTeam";
 import EmployeeProfile from "../Pages/Dashboard/Employee/EmployeeProfile/EmployeeProfile";
 import AdminAssetList from "../Pages/Dashboard/Admin/AdminAssetList/AdminAssetList";
 import AdminAddAsset from "../Pages/Dashboard/Admin/AdminAddAsset/AdminAddAsset";
+import AdminRequestsList from "../Pages/Dashboard/Admin/AdminRequestsList/AdminRequestsList";
+import CustomRequestList from "../Pages/Dashboard/Admin/CustomRequestList/CustomRequestList";
+import AdminEmployeeList from "../Pages/Dashboard/Admin/AdminEmployeeList/AdminEmployeeList";
 
 const router = createBrowserRouter([
   {
@@ -48,6 +51,18 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/admin-add-asset",
         element: <AdminAddAsset />,
+      },
+      {
+        path: "/dashboard/admin-requests",
+        element: <AdminRequestsList />,
+      },
+      {
+        path: "/dashboard/custom-requests",
+        element: <CustomRequestList />,
+      },
+      {
+        path: "/dashboard/admin-all-employee",
+        element: <AdminEmployeeList />,
       },
       // EmployeeRoutes
       {

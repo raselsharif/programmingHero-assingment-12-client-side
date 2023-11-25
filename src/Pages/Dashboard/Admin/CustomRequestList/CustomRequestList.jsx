@@ -3,30 +3,28 @@ import { Button, Card, Input, Typography } from "@material-tailwind/react";
 const TABLE_HEAD = [
   "#",
   "Prod. Name",
+  "Price",
   "Type",
-  "Email",
-  "Emp. Name",
-  "Req. Date",
+  "Image",
+  "Why Need",
   "Additional Note",
-  "Status",
   "Approve",
   "Reject",
 ];
 const TABLE_ROWS = [
   {
     pro_name: "watch",
+    price: "10",
     type: "non-returnable",
-    email: "rasel@mail.com",
-    emp_name: "Rasel",
-    req_date: "00/00/00",
+    image: "image",
+    why_need: "Need for..",
     note: "lorem",
-    status: "approved",
   },
 ];
-const AdminRequestsList = () => {
+const CustomRequestList = () => {
   return (
     <div>
-      <SectionHeader heading={"Al Request"} />
+      <SectionHeader heading={"Custom Request List"} />
       <div className="mt-10  flex flex-wrap justify-center gap-5">
         <div>
           <Input variant="standard" label="Search By Name" />
@@ -58,10 +56,7 @@ const AdminRequestsList = () => {
             </thead>
             <tbody>
               {TABLE_ROWS.map(
-                (
-                  { pro_name, type, email, emp_name, req_date, note, status },
-                  index
-                ) => (
+                ({ pro_name, price, type, image, why_need, note }, index) => (
                   <tr key={index} className="even:bg-blue-gray-50/50">
                     <td className="p-4">
                       <Typography
@@ -87,6 +82,15 @@ const AdminRequestsList = () => {
                         color="blue-gray"
                         className="font-normal capitalize"
                       >
+                        {price}
+                      </Typography>
+                    </td>
+                    <td className="p-4">
+                      <Typography
+                        variant="small"
+                        color="blue-gray"
+                        className="font-normal"
+                      >
                         {type}
                       </Typography>
                     </td>
@@ -96,7 +100,7 @@ const AdminRequestsList = () => {
                         color="blue-gray"
                         className="font-normal"
                       >
-                        {email}
+                        <img src={image} alt="product image" />
                       </Typography>
                     </td>
                     <td className="p-4">
@@ -105,16 +109,7 @@ const AdminRequestsList = () => {
                         color="blue-gray"
                         className="font-normal"
                       >
-                        {emp_name}
-                      </Typography>
-                    </td>
-                    <td className="p-4">
-                      <Typography
-                        variant="small"
-                        color="blue-gray"
-                        className="font-normal"
-                      >
-                        {req_date}
+                        {why_need}
                       </Typography>
                     </td>
                     <td className="p-4">
@@ -124,15 +119,6 @@ const AdminRequestsList = () => {
                         className="font-normal"
                       >
                         {note}
-                      </Typography>
-                    </td>
-                    <td className="p-4">
-                      <Typography
-                        variant="small"
-                        color="blue-gray"
-                        className="font-normal"
-                      >
-                        {status}
                       </Typography>
                     </td>
                     <td className="p-4">
@@ -156,4 +142,4 @@ const AdminRequestsList = () => {
   );
 };
 
-export default AdminRequestsList;
+export default CustomRequestList;
