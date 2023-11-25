@@ -9,6 +9,7 @@ import AssetsEmployee from "../Pages/Dashboard/Employee/AssetsEmployee/AssetsEmp
 import RequestAssetEmployee from "../Pages/Dashboard/Employee/RequestAssetEmployee/RequestAssetEmployee";
 import CustomRequestEmployee from "../Pages/Dashboard/Employee/CustomRequestEmployee/CustomRequestEmployee";
 import MyTeam from "../Pages/Dashboard/Employee/MyTeam/MyTeam";
+import EmployeeProfile from "../Pages/Dashboard/EmployeeProfile/EmployeeProfile";
 
 const router = createBrowserRouter([
   {
@@ -52,6 +53,10 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/my-team",
         element: <MyTeam />,
+      },
+      {
+        path: "/dashboard/employee-profile",
+        element: <EmployeeProfile />,
       },
     ],
   },

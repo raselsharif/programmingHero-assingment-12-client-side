@@ -1,4 +1,13 @@
-import { FaHome } from "react-icons/fa";
+import { Button } from "@material-tailwind/react";
+import {
+  FaBook,
+  FaHome,
+  FaPen,
+  FaTeamspeak,
+  FaUser,
+  FaUsers,
+  FaWonSign,
+} from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 
 const EmployeeMenu = () => {
@@ -23,7 +32,7 @@ const EmployeeMenu = () => {
             : "text-black flex gap-2 items-center hover:bg-black hover:text-white transition-all duration-300 px-3 py-1 rounded-md font-medium"
         }
       >
-        <FaHome />
+        <FaUsers />
         My Team
       </NavLink>
       <NavLink
@@ -34,7 +43,7 @@ const EmployeeMenu = () => {
             : "text-black flex gap-2 items-center hover:bg-black hover:text-white transition-all duration-300 px-3 py-1 rounded-md font-medium"
         }
       >
-        <FaHome />
+        <FaPen />
         My Assets
       </NavLink>
       <NavLink
@@ -45,7 +54,7 @@ const EmployeeMenu = () => {
             : "text-black flex gap-2 items-center hover:bg-black hover:text-white transition-all duration-300 px-3 py-1 rounded-md font-medium"
         }
       >
-        <FaHome />
+        <FaBook />
         Request for an Asset
       </NavLink>
       <NavLink
@@ -56,9 +65,26 @@ const EmployeeMenu = () => {
             : "text-black flex gap-2 items-center hover:bg-black hover:text-white transition-all duration-300 px-3 py-1 rounded-md font-medium"
         }
       >
-        <FaHome />
+        <FaWonSign />
         Make a Custom Request
       </NavLink>
+      <div className="absolute bottom-10 w-3/4 space-y-2">
+        {/* absolute bottom-10 w-3/4 */}
+        <NavLink
+          to={"/dashboard/employee-profile"}
+          className={({ isActive }) =>
+            isActive
+              ? "flex gap-2 items-center bg-black text-white transition-all duration-300 px-3 py-1 rounded-md font-medium"
+              : "text-black flex gap-2 items-center hover:bg-black hover:text-white transition-all duration-300 px-3 py-1 rounded-md font-medium "
+          }
+        >
+          <FaUser />
+          Profile
+        </NavLink>
+        <Button color="red" variant="gradient">
+          Log Out
+        </Button>
+      </div>
     </>
   );
 };
