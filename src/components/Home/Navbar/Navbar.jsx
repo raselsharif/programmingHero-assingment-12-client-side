@@ -15,6 +15,7 @@ import NormalMenu from "./NormalMenu";
 import { Link } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 import toast from "react-hot-toast";
+import useSingleUser from "../../../hooks/useSingleUser";
 
 function ProfileMenu() {
   const { logOut } = useAuth();
@@ -82,17 +83,22 @@ export function ComplexNavbar() {
       () => window.innerWidth >= 960 && setIsNavOpen(false)
     );
   }, []);
-
+  const singUser = useSingleUser();
+  console.log(singUser);
   return (
     <Navbar className="mx-auto max-w-screen-2xl p-2 xl:rounded-full xl:pl-6">
       <div className="relative mx-auto flex items-center justify-between text-blue-gray-900">
-        <Typography
-          as="a"
-          href="#"
-          className="mr-4 ml-2 cursor-pointer py-1.5 font-medium"
-        >
-          logo
-        </Typography>
+        <Link>
+          <img
+            className="h-14 w-14 rounded-full"
+            src={
+              singUser?.logo
+                ? singUser?.logo
+                : "https://png.pngtree.com/template/20210511/ourmid/pngtree-unique-polygon-logo-design-image_522806.png"
+            }
+            alt="logo"
+          />
+        </Link>
         <div className="hidden xl:block">
           <NavList />
         </div>

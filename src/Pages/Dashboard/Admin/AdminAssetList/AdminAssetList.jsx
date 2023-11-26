@@ -7,31 +7,31 @@ import {
   Select,
   Typography,
 } from "@material-tailwind/react";
+import useSecureApi from "../../../../hooks/useSecureApi";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 const TABLE_HEAD = [
   "#",
   "Name",
   "Type",
   "Quantity",
   "Added Date",
-  "Action",
-  "Action",
+  "Edit",
+  "Delete",
 ];
-const TABLE_ROWS = [
-  {
-    name: "watch",
-    type: "non-returnable",
-    quantity: "10",
-    added_date: "24/04/18",
-  },
-  {
-    name: "watch",
-    type: "non-returnable",
-    quantity: "10",
-    added_date: "24/04/18",
-  },
-];
-
 const AdminAssetList = ({ children }) => {
+  const [assets, setAssets] = useState([]);
+  console.log(assets);
+  const secureAPI = useSecureApi();
+  useEffect(() => {
+    secureAPI.get("/assets").then((res) => setAssets(res.data));
+  }, [secureAPI]);
+  const assetDeleteHandler = (id) => {
+    console.log(id);
+    secureAPI.delete(`/asset-delete/${id}`).then(() => {
+      toast.success("Deleted successfully");
+    });
+  };
   return (
     <div>
       <SectionHeader heading={"My Assets"} />
@@ -84,65 +84,71 @@ const AdminAssetList = ({ children }) => {
               </tr>
             </thead>
             <tbody>
-              {TABLE_ROWS.map(({ name, type, quantity, added_date }, index) => (
-                <tr key={index} className="even:bg-blue-gray-50/50">
-                  <td className="p-4">
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
-                      {index + 1}
-                    </Typography>
-                  </td>
-                  <td className="p-4">
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal capitalize"
-                    >
-                      {name}
-                    </Typography>
-                  </td>
-                  <td className="p-4">
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal capitalize"
-                    >
-                      {type}
-                    </Typography>
-                  </td>
-                  <td className="p-4">
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
-                      {quantity}
-                    </Typography>
-                  </td>
-                  <td className="p-4">
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
-                      {added_date}
-                    </Typography>
-                  </td>
-                  <td className="p-4">
-                    <Button color="green" variant="gradient">
-                      Update
-                    </Button>
-                  </td>
-                  <td className="p-4">
-                    <Button color="red" variant="gradient">
-                      Delete
-                    </Button>
-                  </td>
-                </tr>
-              ))}
+              {assets?.map(
+                ({ _id, name, type, quantity, added_date }, index) => (
+                  <tr key={index} className="even:bg-blue-gray-50/50">
+                    <td className="p-4">
+                      <Typography
+                        variant="small"
+                        color="blue-gray"
+                        className="font-normal"
+                      >
+                        {index + 1}
+                      </Typography>
+                    </td>
+                    <td className="p-4">
+                      <Typography
+                        variant="small"
+                        color="blue-gray"
+                        className="font-normal capitalize"
+                      >
+                        {name}
+                      </Typography>
+                    </td>
+                    <td className="p-4">
+                      <Typography
+                        variant="small"
+                        color="blue-gray"
+                        className="font-normal capitalize"
+                      >
+                        {type}
+                      </Typography>
+                    </td>
+                    <td className="p-4">
+                      <Typography
+                        variant="small"
+                        color="blue-gray"
+                        className="font-normal"
+                      >
+                        {quantity}
+                      </Typography>
+                    </td>
+                    <td className="p-4">
+                      <Typography
+                        variant="small"
+                        color="blue-gray"
+                        className="font-normal"
+                      >
+                        {added_date}
+                      </Typography>
+                    </td>
+                    <td className="p-4">
+                      <Button color="green" variant="gradient">
+                        Update
+                      </Button>
+                    </td>
+                    <td className="p-4">
+                      <Button
+                        onClick={() => assetDeleteHandler(_id)}
+                        color="red"
+                        variant="gradient"
+                      >
+                        Delete
+                      </Button>
+                    </td>
+                  </tr>
+                )
+              )}
             </tbody>
           </table>
         </Card>
