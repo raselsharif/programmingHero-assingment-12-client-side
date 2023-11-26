@@ -6,8 +6,89 @@ import {
   Select,
   Option,
 } from "@material-tailwind/react";
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
+import { useForm } from "react-hook-form";
+import useAuth from "../../hooks/useAuth";
+import usePublicAPI from "../../hooks/usePublicAPI";
+import toast from "react-hot-toast";
 
 const JoinAdmin = () => {
+  const { emailPassRegister, updateUserProfile } = useAuth();
+  const publicAPI = usePublicAPI();
+
+  const navigate = useNavigate();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const [show, setShow] = useState(false);
+  const onSubmit = (e) => {
+    const form = e;
+    const name = form.name;
+    const company = form.company;
+    const email = form.email;
+    const birthDate = form.date;
+    const password = form.password;
+    const photo = form?.photo;
+    const logo = form.logo;
+    // const admin_package = selectPackage;
+
+    console.log(name, email, birthDate, password, company, logo);
+    const imgbbKey = import.meta.env.VITE_imgbb;
+    publicAPI
+      .post(
+        `https://api.imgbb.com/1/upload?${imgbbKey}`,
+        {
+          image: logo,
+        },
+        {
+          headers: {
+            "content-type": "multipart/form-data",
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res.data);
+      });
+    const userInfo = {
+      name,
+      email,
+      birthDate,
+      role: "admin",
+      workAt: null,
+    };
+    emailPassRegister(email, password)
+      .then(() => {
+        updateUserProfile(name, photo)
+          .then(() => {
+            // publicAPI
+            //   .post("/user", userInfo)
+            //   .then((res) => {
+            //     if (res.data.insertedId) {
+            //       toast.success("Registration Successful");
+            //       navigate("/");
+            //     }
+            //     console.log(res.data);
+            //   })
+            //   .then((err) => {
+            //     console.log(err);
+            //   });
+          })
+          .catch((err) => {
+            console.log(err);
+            toast.error(`${err.message}`);
+          });
+      })
+      .catch((err) => {
+        if (err) {
+          toast.error(`${err.message}`);
+          console.log(err);
+        }
+      });
+  };
   return (
     <Card color="white" className="max-w-lg mx-auto mt-10 py-6" shadow={true}>
       <div className="text-center">
@@ -18,12 +99,17 @@ const JoinAdmin = () => {
           Nice to meet you! Enter your details to register as a Admin/HR.
         </Typography>
       </div>
-      <form className="mt-8 mb-2 w-80 mx-auto max-w-screen-lg sm:w-96">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="mt-8 mb-2 w-80 mx-auto max-w-screen-lg sm:w-96"
+      >
         <div className="mb-1 flex flex-col gap-6">
           <Typography variant="h6" color="blue-gray" className="-mb-3">
             Full Name
           </Typography>
           <Input
+            name="name"
+            {...register("name", { required: true })}
             size="lg"
             placeholder="Full Name"
             className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
@@ -31,10 +117,17 @@ const JoinAdmin = () => {
               className: "before:content-none after:content-none",
             }}
           />
+          {errors.name?.type === "required" && (
+            <p className="text-red-500" role="alert">
+              Name is required
+            </p>
+          )}
           <Typography variant="h6" color="blue-gray" className="-mb-3">
             Company Name
           </Typography>
           <Input
+            name="company"
+            {...register("company", { required: true })}
             size="lg"
             placeholder="Company Name"
             className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
@@ -42,26 +135,45 @@ const JoinAdmin = () => {
               className: "before:content-none after:content-none",
             }}
           />
+          {errors.company?.type === "required" && (
+            <p className="text-red-500" role="alert">
+              Company Name is required
+            </p>
+          )}
           <Typography variant="h6" color="blue-gray" className="-mb-3">
             Company Logo
           </Typography>
           <input
+            name="logo"
+            {...register("logo", { required: true })}
             size="lg"
             type="file"
             className=" !border-t-blue-gray-200 focus:!border-t-gray-900 file:bg-black file:text-white  file:rounded-md  border border-gray-500 rounded-md file:py-1 file:px-3 cursor-pointer file:cursor-pointer"
           />
+          {errors.logo?.type === "required" && (
+            <p className="text-red-500" role="alert">
+              Logo is required
+            </p>
+          )}
           <Typography variant="h6" color="blue-gray" className="-mb-3">
             Select a package
           </Typography>
-          <Select color="gray" label="Select Package">
+          <Select name="package" color="gray" label="Select Package">
             <Option>5 Members for $ 5</Option>
             <Option>10 Members for $ 8</Option>
             <Option>20 Members for $ 15</Option>
           </Select>
+          {/* {errors.package?.type === "required" && (
+            <p className="text-red-500" role="alert">
+              Select a package
+            </p>
+          )} */}
           <Typography variant="h6" color="blue-gray" className="-mb-3">
             Your Email
           </Typography>
           <Input
+            name="email"
+            {...register("email", { required: true })}
             size="lg"
             placeholder="name@mail.com"
             className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
@@ -69,10 +181,17 @@ const JoinAdmin = () => {
               className: "before:content-none after:content-none",
             }}
           />
+          {errors.email?.type === "required" && (
+            <p className="text-red-500" role="alert">
+              Email is required
+            </p>
+          )}
           <Typography variant="h6" color="blue-gray" className="-mb-3">
             Date of birth
           </Typography>
           <Input
+            name="date"
+            {...register("date", { required: true })}
             type="date"
             size="lg"
             className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
@@ -80,27 +199,50 @@ const JoinAdmin = () => {
               className: "before:content-none after:content-none",
             }}
           />
+          {errors.date?.type === "required" && (
+            <p className="text-red-500" role="alert">
+              Date of birth is required
+            </p>
+          )}
           <Typography variant="h6" color="blue-gray" className="-mb-3">
             Password
           </Typography>
-          <Input
-            type="password"
-            size="lg"
-            placeholder="********"
-            className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
-            labelProps={{
-              className: "before:content-none after:content-none",
-            }}
-          />
+          <div className="relative">
+            <Input
+              name="password"
+              {...register("password", { required: true })}
+              label="Password"
+              size="lg"
+              type={show ? "text" : "password"}
+            />
+            <div
+              onClick={() => setShow(!show)}
+              className="absolute right-3 text-xl text-black top-3 cursor-pointer"
+            >
+              {show ? <FaRegEyeSlash /> : <FaRegEye />}
+            </div>
+            {errors.password?.type === "required" && (
+              <p className="text-red-500 mt-3" role="alert">
+                Password is required
+              </p>
+            )}
+          </div>
         </div>
-        <Button className="mt-6" fullWidth>
+        <Button type="submit" className="mt-6" fullWidth>
           sign up
         </Button>
-        <Typography color="gray" className="mt-4 text-center font-normal">
+        <Typography
+          variant="h5"
+          color="gray"
+          className="mt-4 text-center font-normal"
+        >
           Already have an account?{" "}
-          <a href="#" className="font-medium text-gray-900">
-            Sign In
-          </a>
+          <Link
+            to={"/login"}
+            className="text-blue-400 hover:text-blue-800 transition-all duration-300"
+          >
+            Log In
+          </Link>
         </Typography>
       </form>
     </Card>

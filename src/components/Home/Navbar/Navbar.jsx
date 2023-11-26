@@ -1,7 +1,6 @@
 import React from "react";
 import {
   Navbar,
-  MobileNav,
   Typography,
   Button,
   Menu,
@@ -9,21 +8,27 @@ import {
   MenuList,
   Avatar,
   IconButton,
+  Collapse,
 } from "@material-tailwind/react";
 import { ChevronDownIcon, Bars2Icon } from "@heroicons/react/24/solid";
 import NormalMenu from "./NormalMenu";
 import { Link } from "react-router-dom";
-
-// profile menu component
-const profileMenuItems = (
-  <>
-    <Link to={"/dashboard"}>Dashboard</Link>
-    <Link>Log out</Link>
-  </>
-);
+import useAuth from "../../../hooks/useAuth";
+import toast from "react-hot-toast";
 
 function ProfileMenu() {
+  const { logOut } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const handleLogOut = () => {
+    console.log("log out");
+    logOut()
+      .then(() => {
+        toast.success("Logged out");
+      })
+      .catch(() => {
+        toast.error("Not Logged out");
+      });
+  };
 
   return (
     <Menu open={isMenuOpen} handler={setIsMenuOpen} placement="bottom-end">
@@ -49,14 +54,16 @@ function ProfileMenu() {
         </Button>
       </MenuHandler>
       <MenuList className="flex flex-col gap-3 px-4 py-2">
-        {profileMenuItems}
+        <Link to={"/dashboard"}>Dashboard</Link>
+        <Link onClick={handleLogOut}>Log out</Link>
+        <button onClick={handleLogOut}>log out</button>
       </MenuList>
     </Menu>
   );
 }
 
 function NavList() {
-  const user = false;
+  const { user } = useAuth();
   return (
     <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 xl:flex-row xl:items-center">
       {!user ? <NormalMenu /> : ""}
@@ -66,7 +73,7 @@ function NavList() {
 
 export function ComplexNavbar() {
   const [isNavOpen, setIsNavOpen] = React.useState(false);
-  const user = false;
+  const { user } = useAuth();
   const toggleIsNavOpen = () => setIsNavOpen((cur) => !cur);
 
   React.useEffect(() => {
@@ -112,9 +119,9 @@ export function ComplexNavbar() {
           </Link>
         )}
       </div>
-      <MobileNav open={isNavOpen}>
+      <Collapse open={isNavOpen}>
         <NavList />
-      </MobileNav>
+      </Collapse>
     </Navbar>
   );
 }
