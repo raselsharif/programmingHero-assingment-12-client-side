@@ -9,23 +9,24 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import useAuth from "../../hooks/useAuth";
 import usePublicAPI from "../../hooks/usePublicAPI";
 import toast from "react-hot-toast";
 
-const JoinAdmin = () => {
+const JoinAdmin = ({ children }) => {
   const { emailPassRegister, updateUserProfile } = useAuth();
   const publicAPI = usePublicAPI();
 
   const navigate = useNavigate();
   const {
+    control,
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
   const [show, setShow] = useState(false);
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     const form = e;
     const name = form.name;
     const company = form.company;
@@ -33,61 +34,63 @@ const JoinAdmin = () => {
     const birthDate = form.date;
     const password = form.password;
     const photo = form?.photo;
-    const logo = form.logo;
-    // const admin_package = selectPackage;
+    const logo = form.logo[0];
+    console.log(logo);
+    const admin_package = form.package;
 
-    console.log(name, email, birthDate, password, company, logo);
+    console.log(name, email, birthDate, password, company, logo, admin_package);
     const imgbbKey = import.meta.env.VITE_imgbb;
-    publicAPI
-      .post(
-        `https://api.imgbb.com/1/upload?${imgbbKey}`,
-        {
-          image: logo,
+    const res = await publicAPI.post(
+      `https://api.imgbb.com/1/upload?key=${imgbbKey}`,
+      {
+        image: logo,
+      },
+      {
+        headers: {
+          "content-type": "multipart/form-data",
         },
-        {
-          headers: {
-            "content-type": "multipart/form-data",
-          },
-        }
-      )
-      .then((res) => {
-        console.log(res.data);
-      });
-    const userInfo = {
-      name,
-      email,
-      birthDate,
-      role: "admin",
-      workAt: null,
-    };
-    emailPassRegister(email, password)
-      .then(() => {
-        updateUserProfile(name, photo)
-          .then(() => {
-            // publicAPI
-            //   .post("/user", userInfo)
-            //   .then((res) => {
-            //     if (res.data.insertedId) {
-            //       toast.success("Registration Successful");
-            //       navigate("/");
-            //     }
-            //     console.log(res.data);
-            //   })
-            //   .then((err) => {
-            //     console.log(err);
-            //   });
-          })
-          .catch((err) => {
-            console.log(err);
+      }
+    );
+    if (res.data.success) {
+      const userInfo = {
+        name,
+        email,
+        birthDate,
+        role: "admin",
+        workAt: null,
+        logo: res.data.data.display_url,
+        company,
+        admin_package,
+      };
+      emailPassRegister(email, password)
+        .then(() => {
+          updateUserProfile(name, photo)
+            .then(() => {
+              publicAPI
+                .post("/user", userInfo)
+                .then((res) => {
+                  if (res.data.insertedId) {
+                    toast.success("Registration Successful");
+                    navigate("/");
+                  }
+                  console.log(res.data);
+                })
+                .then((err) => {
+                  console.log(err);
+                });
+            })
+            .catch((err) => {
+              console.log(err);
+              toast.error(`${err.message}`);
+            });
+        })
+        .catch((err) => {
+          if (err) {
             toast.error(`${err.message}`);
-          });
-      })
-      .catch((err) => {
-        if (err) {
-          toast.error(`${err.message}`);
-          console.log(err);
-        }
-      });
+            console.log(err);
+          }
+        });
+    }
   };
   return (
     <Card color="white" className="max-w-lg mx-auto mt-10 py-6" shadow={true}>
@@ -158,16 +161,28 @@ const JoinAdmin = () => {
           <Typography variant="h6" color="blue-gray" className="-mb-3">
             Select a package
           </Typography>
-          <Select name="package" color="gray" label="Select Package">
-            <Option>5 Members for $ 5</Option>
-            <Option>10 Members for $ 8</Option>
-            <Option>20 Members for $ 15</Option>
-          </Select>
-          {/* {errors.package?.type === "required" && (
+          <Controller
+            name="package"
+            control={control}
+            rules={{ required: true }}
+            render={({ field }) => (
+              <Select
+                {...field}
+                name="package"
+                color="gray"
+                label="Select Package"
+              >
+                <Option value="5 Members for $ 5">5 Members for $ 5</Option>
+                <Option value="10 Members for $ 10">10 Members for $ 10</Option>
+                <Option value="15 Members for $ 15">15 Members for $ 15</Option>
+              </Select>
+            )}
+          />
+          {errors.package?.type === "required" && (
             <p className="text-red-500" role="alert">
               Select a package
             </p>
-          )} */}
+          )}
           <Typography variant="h6" color="blue-gray" className="-mb-3">
             Your Email
           </Typography>

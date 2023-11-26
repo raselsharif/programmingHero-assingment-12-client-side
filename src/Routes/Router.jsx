@@ -17,6 +17,7 @@ import CustomRequestList from "../Pages/Dashboard/Admin/CustomRequestList/Custom
 import AdminEmployeeList from "../Pages/Dashboard/Admin/AdminEmployeeList/AdminEmployeeList";
 import AdminAddEmployee from "../Pages/Dashboard/Admin/AdminAddEmployee/AdminAddEmployee";
 import Packages from "../components/Home/Packages/Packages";
+import PrivateRoutes from "./PrivateRoutes";
 
 const router = createBrowserRouter([
   {
