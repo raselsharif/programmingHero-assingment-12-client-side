@@ -1,17 +1,21 @@
 import SectionHeader from "../../../../components/common/SectionHeader/SectionHeader";
 import { Button, Card, Input, Typography } from "@material-tailwind/react";
+import useSecureApi from "../../../../hooks/useSecureApi";
+import useAuth from "../../../../hooks/useAuth";
+import { useEffect, useState } from "react";
 const TABLE_HEAD = ["#", "image", "Emp. Name", "Type", "Action"];
-const TABLE_ROWS = [
-  {
-    image: "image",
-    emp_name: "Rasel",
-    role: "Employee",
-  },
-];
+
 const AdminEmployeeList = () => {
+  const { user } = useAuth();
+  const [employees, setEmployees] = useState([]);
+  console.log(employees);
+  const secureAPI = useSecureApi();
+  useEffect(() => {
+    secureAPI(`/employee/${user?.email}`).then((res) => setEmployees(res.data));
+  }, [secureAPI, user?.email]);
   return (
     <div>
-      <SectionHeader heading={"Al Request"} />
+      <SectionHeader heading={"My Employees"} />
       <div className="mt-10  flex flex-wrap justify-center gap-5">
         <div>
           <Input variant="standard" label="Search By Name" />
@@ -42,7 +46,7 @@ const AdminEmployeeList = () => {
               </tr>
             </thead>
             <tbody>
-              {TABLE_ROWS.map(({ image, emp_name, role }, index) => (
+              {employees.map(({ image, name, role }, index) => (
                 <tr key={index} className="even:bg-blue-gray-50/50">
                   <td className="p-4">
                     <Typography
@@ -59,7 +63,15 @@ const AdminEmployeeList = () => {
                       color="blue-gray"
                       className="font-normal capitalize"
                     >
-                      <img src={image} alt="employee image" />
+                      <img
+                        className="w-14 h-14 rounded-full border border-green-200"
+                        src={
+                          image
+                            ? image
+                            : "https://pipilikasoft.com/wp-content/uploads/2018/08/demo.jpg"
+                        }
+                        alt="employee image"
+                      />
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -68,7 +80,7 @@ const AdminEmployeeList = () => {
                       color="blue-gray"
                       className="font-normal capitalize"
                     >
-                      {emp_name}
+                      {name}
                     </Typography>
                   </td>
                   <td className="p-4">

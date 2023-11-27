@@ -2,11 +2,34 @@ import { Link } from "react-router-dom";
 import SectionHeader from "../../../../components/common/SectionHeader/SectionHeader";
 import { Button, Card, Checkbox, Typography } from "@material-tailwind/react";
 import useAllUser from "../../../../hooks/useAllUser";
+import useAuth from "../../../../hooks/useAuth";
+import { useEffect, useState } from "react";
+import useSecureApi from "../../../../hooks/useSecureApi";
+import toast from "react-hot-toast";
 const TABLE_HEAD = ["", "#", "image", "Emp. Name", "Type", "Action"];
 
 const AdminAddEmployee = () => {
-  const users = useAllUser();
-  console.log(users);
+  const { user } = useAuth();
+  console.log(user);
+  const userEmail = user?.email;
+  const allUsers = useAllUser();
+  const [users, setUsers] = useState([]);
+  const secureAPI = useSecureApi();
+  useEffect(() => {
+    const filteredUser = allUsers.filter(
+      (user) => user?.email !== userEmail && !user.team
+    );
+    setUsers(filteredUser);
+  }, [userEmail, allUsers]);
+  const handleAddEmployee = (id) => {
+    const userInfo = {
+      workAt: user.email,
+      team: true,
+    };
+    secureAPI.put(`/add-remove-team/${id}`, userInfo).then(() => {
+      toast.success("Added to team successfully");
+    });
+  };
   return (
     <div>
       <SectionHeader heading={"Add an Employee"} />
@@ -53,7 +76,7 @@ const AdminAddEmployee = () => {
               </tr>
             </thead>
             <tbody>
-              {users?.map(({ image, name, role }, index) => (
+              {users?.map(({ image, name, role, _id }, index) => (
                 <tr key={index} className="even:bg-blue-gray-50/50">
                   <td className="p-4">
                     <Typography
@@ -79,7 +102,15 @@ const AdminAddEmployee = () => {
                       color="blue-gray"
                       className="font-normal capitalize"
                     >
-                      <img src={image} alt="employee image" />
+                      <img
+                        className="w-16 h-16 rounded-full border border-green-200"
+                        src={
+                          image
+                            ? image
+                            : "https://pipilikasoft.com/wp-content/uploads/2018/08/demo.jpg"
+                        }
+                        alt="employee image"
+                      />
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -101,7 +132,11 @@ const AdminAddEmployee = () => {
                     </Typography>
                   </td>
                   <td className="p-4">
-                    <Button color="green" variant="gradient">
+                    <Button
+                      onClick={() => handleAddEmployee(_id)}
+                      color="green"
+                      variant="gradient"
+                    >
                       Add to Team
                     </Button>
                   </td>
