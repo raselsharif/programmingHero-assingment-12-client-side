@@ -10,6 +10,7 @@ import {
 import useSecureApi from "../../../../hooks/useSecureApi";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { Link } from "react-router-dom";
 const TABLE_HEAD = [
   "#",
   "Name",
@@ -133,9 +134,11 @@ const AdminAssetList = ({ children }) => {
                       </Typography>
                     </td>
                     <td className="p-4">
-                      <Button color="green" variant="gradient">
-                        Update
-                      </Button>
+                      <Link to={`/dashboard/asset-update/${_id}`}>
+                        <Button color="green" variant="gradient">
+                          Update
+                        </Button>
+                      </Link>
                     </td>
                     <td className="p-4">
                       <Button

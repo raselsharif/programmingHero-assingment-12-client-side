@@ -18,6 +18,7 @@ import AdminEmployeeList from "../Pages/Dashboard/Admin/AdminEmployeeList/AdminE
 import AdminAddEmployee from "../Pages/Dashboard/Admin/AdminAddEmployee/AdminAddEmployee";
 import Packages from "../components/Home/Packages/Packages";
 import PrivateRoutes from "./PrivateRoutes";
+import AdminAssetUpdate from "../Pages/Dashboard/Admin/AdminAssetUpdate/AdminAssetUpdate";
 
 const router = createBrowserRouter([
   {
@@ -78,6 +79,10 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/admin-add-employee",
         element: <AdminAddEmployee />,
+      },
+      {
+        path: "/dashboard/asset-update/:id",
+        element: <AdminAssetUpdate />,
       },
       // EmployeeRoutes
       {

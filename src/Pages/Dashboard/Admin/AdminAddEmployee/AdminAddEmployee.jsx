@@ -1,15 +1,12 @@
 import { Link } from "react-router-dom";
 import SectionHeader from "../../../../components/common/SectionHeader/SectionHeader";
 import { Button, Card, Checkbox, Typography } from "@material-tailwind/react";
+import useAllUser from "../../../../hooks/useAllUser";
 const TABLE_HEAD = ["", "#", "image", "Emp. Name", "Type", "Action"];
-const TABLE_ROWS = [
-  {
-    image: "image",
-    emp_name: "Rasel",
-    role: "Employee",
-  },
-];
+
 const AdminAddEmployee = () => {
+  const users = useAllUser();
+  console.log(users);
   return (
     <div>
       <SectionHeader heading={"Add an Employee"} />
@@ -56,7 +53,7 @@ const AdminAddEmployee = () => {
               </tr>
             </thead>
             <tbody>
-              {TABLE_ROWS.map(({ image, emp_name, role }, index) => (
+              {users?.map(({ image, name, role }, index) => (
                 <tr key={index} className="even:bg-blue-gray-50/50">
                   <td className="p-4">
                     <Typography
@@ -91,7 +88,7 @@ const AdminAddEmployee = () => {
                       color="blue-gray"
                       className="font-normal capitalize"
                     >
-                      {emp_name}
+                      {name}
                     </Typography>
                   </td>
                   <td className="p-4">
