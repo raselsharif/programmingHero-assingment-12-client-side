@@ -13,24 +13,22 @@ import {
 } from "@material-tailwind/react";
 import SectionHeader from "../../../../components/common/SectionHeader/SectionHeader";
 import { useState } from "react";
+import useAllAsset from "../../../../hooks/useAllAsset";
 
 const TABLE_HEAD = ["#", "Name", "Type", "Availability", "Action"];
-const TABLE_ROWS = [
-  {
-    name: "watch",
-    type: "non-returnable",
-    availability: "available",
-  },
-  {
-    name: "watch",
-    type: "returnable",
-    availability: "out-of-stoke",
-  },
-];
 const RequestAssetEmployee = ({ children }) => {
   const [open, setOpen] = useState(false);
-
+  const [productId, setProductId] = useState("");
   const handleOpen = () => setOpen(!open);
+  const assets = useAllAsset();
+  const saveId = (id) => {
+    setProductId(id);
+  };
+  const handleRequest = (e) => {
+    e.preventDefault();
+    // const note = e.target.note.value;
+    console.log("clicked");
+  };
   return (
     <div>
       <SectionHeader heading={"Request for an asset"} />
@@ -77,7 +75,7 @@ const RequestAssetEmployee = ({ children }) => {
               </tr>
             </thead>
             <tbody>
-              {TABLE_ROWS.map(({ name, type, availability }, index) => (
+              {assets?.map(({ name, type, quantity, _id }, index) => (
                 <tr key={index} className="even:bg-blue-gray-50/50">
                   <td className="p-4">
                     <Typography
@@ -111,12 +109,12 @@ const RequestAssetEmployee = ({ children }) => {
                       variant="small"
                       color="blue-gray"
                       className={
-                        availability === "out-of-stoke"
+                        quantity <= 0
                           ? "text-red-500 capitalize"
                           : "text-green-500 capitalize"
                       }
                     >
-                      {availability.split("-").join(" ")}
+                      {quantity <= 0 ? "Out of stoke" : "Available"}
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -127,7 +125,7 @@ const RequestAssetEmployee = ({ children }) => {
                       color="blue-gray"
                       className="font-medium"
                     >
-                      {availability === "out-of-stoke" ? (
+                      {quantity <= 0 ? (
                         <Button disabled variant="filled">
                           request
                         </Button>
@@ -148,39 +146,34 @@ const RequestAssetEmployee = ({ children }) => {
           </table>
         </Card>
       </div>
-      <form onSubmit={""}>
-        <Dialog open={open} size="xs" handler={handleOpen}>
-          <div className="flex items-center justify-between">
-            <DialogHeader className="flex flex-col items-start">
-              <Typography className="mb-1" variant="h4">
-                Additional Note:
-              </Typography>
-            </DialogHeader>
-          </div>
+      <Dialog open={open} size="xs" handler={handleOpen}>
+        <div className="flex items-center justify-between">
+          <DialogHeader className="flex flex-col items-start">
+            <Typography className="mb-1" variant="h4">
+              Additional Note:
+            </Typography>
+          </DialogHeader>
+        </div>
 
+        <form onSubmit={handleRequest}>
           <DialogBody>
             <Typography className="mb-10 -mt-7 " color="gray" variant="lead">
               Write the message and then send request.
             </Typography>
             <div className="grid gap-6">
-              <Textarea label="Additional Note.." required />
+              <Textarea label="Additional Note.." name="note" required />
             </div>
           </DialogBody>
           <DialogFooter className="space-x-2">
             <Button variant="text" color="gray" onClick={handleOpen}>
-              cancel
+              close
             </Button>
-            <Button
-              type="submit"
-              variant="gradient"
-              color="blue-gray"
-              onClick={handleOpen}
-            >
+            <Button type="submit" variant="gradient" color="blue-gray">
               send request
             </Button>
           </DialogFooter>
-        </Dialog>
-      </form>
+        </form>
+      </Dialog>
     </div>
   );
 };

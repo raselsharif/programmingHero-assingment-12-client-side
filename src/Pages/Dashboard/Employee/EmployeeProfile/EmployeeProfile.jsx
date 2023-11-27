@@ -15,7 +15,7 @@ const EmployeeProfile = () => {
     e.preventDefault();
     const form = e.target;
     const name = form.name.value;
-    const image = form.image.files[0];
+    const image = form.image.files[0] || user?.image;
     const birthDate = form.date.value;
     const imgbbKey = import.meta.env.VITE_imgbb;
     const res = await secureAPI.post(
@@ -32,7 +32,7 @@ const EmployeeProfile = () => {
     if (res.data.success) {
       const userInfo = {
         name,
-        image: res.data.data.display_url || user?.image,
+        image: res.data.data.display_url,
         birthDate: birthDate || user?.birthDate,
       };
       secureAPI

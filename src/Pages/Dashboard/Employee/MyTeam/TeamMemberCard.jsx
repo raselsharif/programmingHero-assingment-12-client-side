@@ -7,22 +7,26 @@ import {
   Tooltip,
 } from "@material-tailwind/react";
 
-const TeamMemberCard = () => {
+const TeamMemberCard = ({ team }) => {
   return (
     <Card className="w-full">
       <CardHeader floated={false} className="h-56">
         <img
           className="h-full w-full object-cover"
-          src="https://www.stryx.com/cdn/shop/articles/man-looking-attractive.jpg?v=1666662774"
+          src={
+            team?.image
+              ? team.image
+              : "https://www.kindpng.com/picc/m/77-777209_silhouetteimagesb-male-profile-pic-empty-hd-png-download.png"
+          }
           alt="profile-picture"
         />
       </CardHeader>
       <CardBody className="text-center">
         <Typography variant="h4" color="blue-gray" className="mb-2">
-          Natalie Paisley
+          {team.name}
         </Typography>
         <Typography color="blue-gray" className="font-medium" textGradient>
-          Admin/Employee
+          {team.role}
         </Typography>
       </CardBody>
     </Card>
