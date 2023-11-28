@@ -1,9 +1,10 @@
+import Spinner from "../components/common/Loading/Spinner";
 import useAuth from "../hooks/useAuth";
 
 const PrivateRoutes = ({ children }) => {
   const { user, loading } = useAuth();
   if (loading) {
-    return <p>Loading.....</p>;
+    return <Spinner />;
   }
   if (user) {
     return children;

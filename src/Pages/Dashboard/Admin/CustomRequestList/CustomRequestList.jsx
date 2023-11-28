@@ -1,5 +1,7 @@
+import { useEffect, useState } from "react";
 import SectionHeader from "../../../../components/common/SectionHeader/SectionHeader";
 import { Button, Card, Input, Typography } from "@material-tailwind/react";
+import useAllAsset from "../../../../hooks/useAllAsset";
 const TABLE_HEAD = [
   "#",
   "Prod. Name",
@@ -11,17 +13,15 @@ const TABLE_HEAD = [
   "Approve",
   "Reject",
 ];
-const TABLE_ROWS = [
-  {
-    pro_name: "watch",
-    price: "10",
-    type: "non-returnable",
-    image: "image",
-    why_need: "Need for..",
-    note: "lorem",
-  },
-];
 const CustomRequestList = () => {
+  const assets = useAllAsset();
+  const [assetRequest, setRequestAsset] = useState([]);
+  useEffect(() => {
+    const filteredAsset = assets.filter(
+      (asset) => asset.request_type === "custom"
+    );
+    setRequestAsset(filteredAsset);
+  }, [assets]);
   return (
     <div>
       <SectionHeader heading={"Custom Request List"} />
@@ -55,8 +55,8 @@ const CustomRequestList = () => {
               </tr>
             </thead>
             <tbody>
-              {TABLE_ROWS.map(
-                ({ pro_name, price, type, image, why_need, note }, index) => (
+              {assetRequest.map(
+                ({ name, price, type, image, why_need, note }, index) => (
                   <tr key={index} className="even:bg-blue-gray-50/50">
                     <td className="p-4">
                       <Typography
@@ -73,7 +73,7 @@ const CustomRequestList = () => {
                         color="blue-gray"
                         className="font-normal capitalize"
                       >
-                        {pro_name}
+                        {name}
                       </Typography>
                     </td>
                     <td className="p-4">
@@ -100,7 +100,11 @@ const CustomRequestList = () => {
                         color="blue-gray"
                         className="font-normal"
                       >
-                        <img src={image} alt="product image" />
+                        <img
+                          className="h-14 w-14 rounded-full border border-green-200"
+                          src={image}
+                          alt="product image"
+                        />
                       </Typography>
                     </td>
                     <td className="p-4">

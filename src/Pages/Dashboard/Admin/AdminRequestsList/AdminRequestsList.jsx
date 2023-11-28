@@ -1,5 +1,7 @@
 import SectionHeader from "../../../../components/common/SectionHeader/SectionHeader";
 import { Button, Card, Input, Typography } from "@material-tailwind/react";
+import useAllAsset from "../../../../hooks/useAllAsset";
+import { useEffect, useState } from "react";
 const TABLE_HEAD = [
   "#",
   "Prod. Name",
@@ -12,18 +14,13 @@ const TABLE_HEAD = [
   "Approve",
   "Reject",
 ];
-const TABLE_ROWS = [
-  {
-    pro_name: "watch",
-    type: "non-returnable",
-    email: "rasel@mail.com",
-    emp_name: "Rasel",
-    req_date: "00/00/00",
-    note: "lorem",
-    status: "approved",
-  },
-];
-const AdminRequestsList = () => {
+const AdminRequestsList = ({ children }) => {
+  const assets = useAllAsset();
+  const [assetRequest, setRequestAsset] = useState([]);
+  useEffect(() => {
+    const filteredAsset = assets.filter((asset) => asset.status === "pending");
+    setRequestAsset(filteredAsset);
+  }, [assets]);
   return (
     <div>
       <SectionHeader heading={"Al Request"} />
@@ -57,9 +54,17 @@ const AdminRequestsList = () => {
               </tr>
             </thead>
             <tbody>
-              {TABLE_ROWS.map(
+              {assetRequest.map(
                 (
-                  { pro_name, type, email, emp_name, req_date, note, status },
+                  {
+                    name,
+                    type,
+                    requested_by,
+                    requester_name,
+                    request_date,
+                    note,
+                    status,
+                  },
                   index
                 ) => (
                   <tr key={index} className="even:bg-blue-gray-50/50">
@@ -78,7 +83,7 @@ const AdminRequestsList = () => {
                         color="blue-gray"
                         className="font-normal capitalize"
                       >
-                        {pro_name}
+                        {name}
                       </Typography>
                     </td>
                     <td className="p-4">
@@ -96,7 +101,7 @@ const AdminRequestsList = () => {
                         color="blue-gray"
                         className="font-normal"
                       >
-                        {email}
+                        {requested_by}
                       </Typography>
                     </td>
                     <td className="p-4">
@@ -105,7 +110,7 @@ const AdminRequestsList = () => {
                         color="blue-gray"
                         className="font-normal"
                       >
-                        {emp_name}
+                        {requester_name}
                       </Typography>
                     </td>
                     <td className="p-4">
@@ -114,7 +119,7 @@ const AdminRequestsList = () => {
                         color="blue-gray"
                         className="font-normal"
                       >
-                        {req_date}
+                        {request_date}
                       </Typography>
                     </td>
                     <td className="p-4">

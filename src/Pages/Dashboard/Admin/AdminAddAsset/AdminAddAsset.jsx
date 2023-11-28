@@ -21,7 +21,7 @@ const AdminAddAsset = () => {
   const secureAPI = useSecureApi();
   const onSubmit = (data) => {
     const name = data.name;
-    const quantity = data.quantity;
+    const quantity = parseInt(data.quantity);
     const type = data.type;
     console.log(name, quantity, type);
     const assetInfo = {

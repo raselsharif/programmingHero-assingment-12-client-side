@@ -1,21 +1,17 @@
 import SectionHeader from "../../../components/common/SectionHeader/SectionHeader";
+import MonthlyRequest from "./MonthlyRequest";
+import MyCustomRequest from "./MyCustomRequest";
+import MyPending from "./MyPending";
 
 const HomeEmployee = () => {
   return (
-    <div className="mt-20">
+    <div className="mt-10">
       <h2 className="text-center text-3xl text-green-500">
-        Normal Employee Home Page
+        Employee Home Page
       </h2>
-      <SectionHeader heading={"My Custom Request"} />
-      <div className="text-center">Custom Request item will be here</div>
-      <div className="mt-10">
-        <SectionHeader heading={"My Pending Request"} />
-        <div className="text-center">Pending Request item will be here</div>
-      </div>
-      <div className="mt-10">
-        <SectionHeader heading={"My Monthly Request"} />
-        <div className="text-center">Monthly Request item will be here</div>
-      </div>
+      <MyCustomRequest />
+      <MyPending />
+      <MonthlyRequest />
       <div className="mt-10">
         <SectionHeader heading={"Frequently Requested Item"} />
         <div className="text-center">Monthly Request item will be here</div>

@@ -14,9 +14,15 @@ import {
 import SectionHeader from "../../../../components/common/SectionHeader/SectionHeader";
 import { useState } from "react";
 import useAllAsset from "../../../../hooks/useAllAsset";
+import useSecureApi from "../../../../hooks/useSecureApi";
+import useSingleUser from "../../../../hooks/useSingleUser";
+import { toast } from "react-hot-toast";
 
 const TABLE_HEAD = ["#", "Name", "Type", "Availability", "Action"];
 const RequestAssetEmployee = ({ children }) => {
+  const user = useSingleUser();
+  console.log(user);
+  const secureAPI = useSecureApi();
   const [open, setOpen] = useState(false);
   const [productId, setProductId] = useState("");
   const handleOpen = () => setOpen(!open);
@@ -24,10 +30,18 @@ const RequestAssetEmployee = ({ children }) => {
   const saveId = (id) => {
     setProductId(id);
   };
-  const handleRequest = (e) => {
-    e.preventDefault();
+  const handleRequest = (id) => {
+    // e.preventDefault();
     // const note = e.target.note.value;
-    console.log("clicked");
+    const requestInfo = {
+      requested_by: user.email,
+      requester_name: user.name,
+      request_date: Date(),
+      status: "pending",
+    };
+    secureAPI.put(`/asset-update/${id}`, requestInfo).then(() => {
+      toast.success("Requested successfully");
+    });
   };
   return (
     <div>
@@ -131,7 +145,7 @@ const RequestAssetEmployee = ({ children }) => {
                         </Button>
                       ) : (
                         <Button
-                          onClick={handleOpen}
+                          onClick={() => handleRequest(_id)}
                           color="blue-gray"
                           variant="gradient"
                         >

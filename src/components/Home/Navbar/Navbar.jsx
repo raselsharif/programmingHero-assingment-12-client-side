@@ -11,25 +11,28 @@ import {
 } from "@material-tailwind/react";
 import { ChevronDownIcon, Bars2Icon } from "@heroicons/react/24/solid";
 import NormalMenu from "./NormalMenu";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 import toast from "react-hot-toast";
 import useSingleUser from "../../../hooks/useSingleUser";
 
 function ProfileMenu() {
   const { logOut } = useAuth();
+  const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const handleLogOut = () => {
     console.log("log out");
     logOut()
       .then(() => {
         toast.success("Logged out");
+        navigate("/");
       })
       .catch(() => {
         toast.error("Not Logged out");
       });
   };
-
+  const singUser = useSingleUser();
+  console.log();
   return (
     <Menu open={isMenuOpen} handler={setIsMenuOpen} placement="bottom-end">
       <MenuHandler>
@@ -43,7 +46,11 @@ function ProfileMenu() {
             size="sm"
             alt="tania andrew"
             className="border border-gray-900 p-0.5"
-            src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80"
+            src={
+              singUser?.image
+                ? singUser.image
+                : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+            }
           />
           <ChevronDownIcon
             strokeWidth={2.5}
@@ -54,9 +61,18 @@ function ProfileMenu() {
         </Button>
       </MenuHandler>
       <MenuList className="flex flex-col gap-3 px-4 py-2">
-        <Link to={"/dashboard"}>Dashboard</Link>
-        <Link onClick={handleLogOut}>Log out</Link>
-        <button onClick={handleLogOut}>log out</button>
+        <Link
+          className="hover:bg-black hover:text-white px-2 py-1 rounded-md transition-all duration-300"
+          to={"/dashboard"}
+        >
+          Dashboard
+        </Link>
+        <Link
+          className="hover:bg-red-500 hover:text-white px-2 py-1 rounded-md transition-all duration-300"
+          onClick={handleLogOut}
+        >
+          Log out
+        </Link>
       </MenuList>
     </Menu>
   );

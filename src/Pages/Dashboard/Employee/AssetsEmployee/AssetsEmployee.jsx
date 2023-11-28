@@ -7,6 +7,9 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import SectionHeader from "../../../../components/common/SectionHeader/SectionHeader";
+import useAllAsset from "../../../../hooks/useAllAsset";
+import useSingleUser from "../../../../hooks/useSingleUser";
+import { useEffect, useState } from "react";
 const TABLE_HEAD = [
   "#",
   "Name",
@@ -16,23 +19,17 @@ const TABLE_HEAD = [
   "Request Status",
   "Action",
 ];
-const TABLE_ROWS = [
-  {
-    name: "watch",
-    type: "non-returnable",
-    request_date: "23/04/18",
-    approved_date: "24/04/18",
-    status: "pending",
-  },
-  {
-    name: "watch",
-    type: "returnable",
-    request_date: "23/04/18",
-    approved_date: "24/04/18",
-    status: "approved",
-  },
-];
 const AssetsEmployee = ({ children }) => {
+  const assets = useAllAsset();
+  const user = useSingleUser();
+  const [myAssets, setMyAssets] = useState([]);
+  console.log(myAssets);
+  useEffect(() => {
+    const myAssetsFiltered = assets.filter(
+      (asset) => user.email === asset.requested_by
+    );
+    setMyAssets(myAssetsFiltered);
+  }, [assets, user.email]);
   return (
     <div>
       <SectionHeader heading={"My Assets"} />
@@ -79,7 +76,7 @@ const AssetsEmployee = ({ children }) => {
               </tr>
             </thead>
             <tbody>
-              {TABLE_ROWS.map(
+              {myAssets.map(
                 (
                   { name, type, request_date, approved_date, status },
                   index

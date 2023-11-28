@@ -19,6 +19,9 @@ import AdminAddEmployee from "../Pages/Dashboard/Admin/AdminAddEmployee/AdminAdd
 import Packages from "../components/Home/Packages/Packages";
 import PrivateRoutes from "./PrivateRoutes";
 import AdminAssetUpdate from "../Pages/Dashboard/Admin/AdminAssetUpdate/AdminAssetUpdate";
+import UserHome from "../Pages/Home/UserHome/UserHome";
+import HomeEmployee from "../Pages/Home/HomeEmployee/HomeEmployee";
+import HomeAdmin from "../Pages/Home/HomeAdmin/HomeAdmin";
 
 const router = createBrowserRouter([
   {
@@ -27,11 +30,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: (
-          <PrivateRoutes>
-            <Home />
-          </PrivateRoutes>
-        ),
+        element: <Home />,
       },
       {
         path: "/login",
@@ -48,6 +47,25 @@ const router = createBrowserRouter([
       {
         path: "/packages",
         element: <Packages />,
+      },
+    ],
+  },
+  {
+    path: "/user-home",
+    element: (
+      <PrivateRoutes>
+        {" "}
+        <UserHome />
+      </PrivateRoutes>
+    ),
+    children: [
+      {
+        path: "/user-home/employee",
+        element: <HomeEmployee />,
+      },
+      {
+        path: "/user-home/admin",
+        element: <HomeAdmin />,
       },
     ],
   },

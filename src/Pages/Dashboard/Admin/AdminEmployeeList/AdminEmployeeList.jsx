@@ -3,16 +3,27 @@ import { Button, Card, Input, Typography } from "@material-tailwind/react";
 import useSecureApi from "../../../../hooks/useSecureApi";
 import useAuth from "../../../../hooks/useAuth";
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 const TABLE_HEAD = ["#", "image", "Emp. Name", "Type", "Action"];
 
 const AdminEmployeeList = () => {
   const { user } = useAuth();
   const [employees, setEmployees] = useState([]);
-  console.log(employees);
+  // console.log(employees);
   const secureAPI = useSecureApi();
   useEffect(() => {
     secureAPI(`/employee/${user?.email}`).then((res) => setEmployees(res.data));
   }, [secureAPI, user?.email]);
+  const handleRemoveEmployee = (id) => {
+    console.log(id);
+    const userInfo = {
+      workAt: null,
+      team: false,
+    };
+    secureAPI.put(`/add-remove-team/${id}`, userInfo).then(() => {
+      toast.success("Removed to team successfully");
+    });
+  };
   return (
     <div>
       <SectionHeader heading={"My Employees"} />
@@ -46,7 +57,7 @@ const AdminEmployeeList = () => {
               </tr>
             </thead>
             <tbody>
-              {employees.map(({ image, name, role }, index) => (
+              {employees.map(({ image, name, role, _id }, index) => (
                 <tr key={index} className="even:bg-blue-gray-50/50">
                   <td className="p-4">
                     <Typography
@@ -93,7 +104,11 @@ const AdminEmployeeList = () => {
                     </Typography>
                   </td>
                   <td className="p-4">
-                    <Button color="red" variant="gradient">
+                    <Button
+                      onClick={() => handleRemoveEmployee(_id)}
+                      color="red"
+                      variant="gradient"
+                    >
                       Remove
                     </Button>
                   </td>

@@ -38,7 +38,7 @@ const JoinAdmin = ({ children }) => {
     console.log(logo);
     const admin_package = form.package;
 
-    console.log(name, email, birthDate, password, company, logo, admin_package);
+    // console.log(name, email, birthDate, password, company, logo, admin_package);
     const imgbbKey = import.meta.env.VITE_imgbb;
     const res = await publicAPI.post(
       `https://api.imgbb.com/1/upload?key=${imgbbKey}`,

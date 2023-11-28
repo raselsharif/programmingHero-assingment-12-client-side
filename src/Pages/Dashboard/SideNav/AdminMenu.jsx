@@ -1,11 +1,22 @@
-import { FaHome } from "react-icons/fa";
-import { NavLink } from "react-router-dom";
+import { Button } from "@material-tailwind/react";
+import { FaHome, FaUser } from "react-icons/fa";
+import { NavLink, useNavigate } from "react-router-dom";
+import useAuth from "../../../hooks/useAuth";
+import toast from "react-hot-toast";
 
 const AdminMenu = () => {
+  const { logOut } = useAuth();
+  const navigate = useNavigate();
+  const handleLogOut = () => {
+    logOut().then(() => {
+      toast.success("logged out successfully");
+      navigate("/");
+    });
+  };
   return (
     <>
       <NavLink
-        to={"/"}
+        to={"/admin-home"}
         className={({ isActive }) =>
           isActive
             ? "flex gap-2 items-center bg-black text-white transition-all duration-300 px-3 py-1 rounded-md font-medium"
@@ -81,6 +92,23 @@ const AdminMenu = () => {
         <FaHome />
         Custom Request List
       </NavLink>
+      <div className="absolute bottom-10 w-3/4 space-y-2">
+        {/* absolute bottom-10 w-3/4 */}
+        <NavLink
+          to={"/dashboard/employee-profile"}
+          className={({ isActive }) =>
+            isActive
+              ? "flex gap-2 items-center bg-black text-white transition-all duration-300 px-3 py-1 rounded-md font-medium"
+              : "text-black flex gap-2 items-center hover:bg-black hover:text-white transition-all duration-300 px-3 py-1 rounded-md font-medium "
+          }
+        >
+          <FaUser />
+          Profile
+        </NavLink>
+        <Button onClick={handleLogOut} color="red" variant="gradient">
+          Log Out
+        </Button>
+      </div>
     </>
   );
 };

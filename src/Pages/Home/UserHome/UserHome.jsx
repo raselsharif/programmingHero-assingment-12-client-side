@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import Container from "../../../components/common/Container/Container";
-import About from "../../../components/Home/About/About";
-import Packages from "../../../components/Home/Packages/Packages";
 import useAuth from "../../../hooks/useAuth";
 import usePublicAPI from "../../../hooks/usePublicAPI";
-import { CarouselWithContent } from "./Banner";
+import HomeAdmin from "../HomeAdmin/HomeAdmin";
+import HomeEmployee from "../HomeEmployee/HomeEmployee";
+import { ComplexNavbar } from "../../../components/Home/Navbar/Navbar";
+import { FooterWithLogo } from "../../../components/common/Footer/Footer";
 
-const Home = () => {
+const UserHome = () => {
   const { user } = useAuth();
   const userEmail = user?.email;
   const [singleUser, setSingleUser] = useState({});
@@ -20,11 +21,11 @@ const Home = () => {
 
   return (
     <Container>
-      <CarouselWithContent />
-      <About />
-      <Packages />
+      <ComplexNavbar />
+      {singleUser?.role === "admin" ? <HomeAdmin /> : <HomeEmployee />}
+      <FooterWithLogo />
     </Container>
   );
 };
 
-export default Home;
+export default UserHome;

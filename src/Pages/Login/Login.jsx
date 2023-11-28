@@ -34,7 +34,7 @@ const Login = () => {
         if (result) {
           toast.success("Logged In Successfully");
           console.log(result);
-          navigate("/");
+          navigate("/user-home");
         }
       })
       .catch((err) => {

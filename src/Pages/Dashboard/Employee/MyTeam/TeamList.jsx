@@ -5,11 +5,11 @@ import useSingleUser from "../../../../hooks/useSingleUser";
 const TeamList = () => {
   const users = useAllUser();
   const user = useSingleUser();
-  const [myTeam, setMyteam] = useState([]);
+  const [myTeam, setMyTeam] = useState([]);
   console.log(myTeam);
   useEffect(() => {
     const teamFiltered = users.filter((team) => team?.workAt === user?.workAt);
-    setMyteam(teamFiltered);
+    setMyTeam(teamFiltered);
   }, [users, user?.workAt]);
   return (
     <div>

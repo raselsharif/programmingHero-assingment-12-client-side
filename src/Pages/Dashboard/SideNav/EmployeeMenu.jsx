@@ -3,18 +3,27 @@ import {
   FaBook,
   FaHome,
   FaPen,
-  FaTeamspeak,
   FaUser,
   FaUsers,
   FaWonSign,
 } from "react-icons/fa";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import useAuth from "../../../hooks/useAuth";
+import toast from "react-hot-toast";
 
 const EmployeeMenu = () => {
+  const { logOut } = useAuth();
+  const navigate = useNavigate();
+  const handleLogOut = () => {
+    logOut().then(() => {
+      toast.success("logged out successfully");
+      navigate("/");
+    });
+  };
   return (
     <>
       <NavLink
-        to={"/"}
+        to={"/user-home"}
         className={({ isActive }) =>
           isActive
             ? "flex gap-2 items-center bg-black text-white transition-all duration-300 px-3 py-1 rounded-md font-medium"
@@ -81,7 +90,7 @@ const EmployeeMenu = () => {
           <FaUser />
           Profile
         </NavLink>
-        <Button color="red" variant="gradient">
+        <Button onClick={handleLogOut} color="red" variant="gradient">
           Log Out
         </Button>
       </div>
