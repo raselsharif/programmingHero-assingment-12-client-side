@@ -61,6 +61,7 @@ const JoinAdmin = ({ children }) => {
         logo: res.data.data.display_url,
         company,
         admin_package,
+        payment: false,
       };
       emailPassRegister(email, password)
         .then(() => {

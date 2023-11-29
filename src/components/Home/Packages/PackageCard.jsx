@@ -28,7 +28,7 @@ function CheckIcon() {
 
 export function PricingCard({ price, name, employee }) {
   return (
-    <Card color="white" variant="gradient" className="w-full max-w-[20rem] p-8">
+    <Card color="white" variant="gradient" className="w-full  p-8">
       <CardHeader
         floated={false}
         shadow={false}

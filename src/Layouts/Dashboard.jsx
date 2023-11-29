@@ -7,7 +7,7 @@ const Dashboard = () => {
       <div className="col-span-3 px-4">
         <DefaultSidebar />
       </div>
-      <div className="col-span-9">
+      <div className="lg:col-span-9 h-screen overflow-y-scroll">
         <Outlet />
       </div>
     </div>

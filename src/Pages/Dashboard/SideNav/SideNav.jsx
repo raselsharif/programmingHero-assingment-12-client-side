@@ -7,10 +7,15 @@ import useSingleUser from "../../../hooks/useSingleUser";
 export function DefaultSidebar() {
   const user = useSingleUser();
   return (
-    <Card className="h-[calc(100vh-2rem)] w-full p-4 shadow-xl shadow-blue-gray-900/5">
-      <div className="mb-2 p-4">
+    <Card className="h-screen p-4 shadow-xl shadow-blue-gray-500">
+      <div className="mb-2 p-4 space-y-4">
+        <img
+          className="h-16 w-16 rounded-full border border-green-200 shadow-lg"
+          src={user?.logo}
+          alt=""
+        />
         <Typography variant="h5" color="blue-gray">
-          Sidebar
+          {user?.name}
         </Typography>
       </div>
       <List>

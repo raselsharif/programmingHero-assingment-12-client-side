@@ -32,7 +32,7 @@ function ProfileMenu() {
       });
   };
   const singUser = useSingleUser();
-  console.log(singUser);
+  // console.log(singUser);
   return (
     <Menu open={isMenuOpen} handler={setIsMenuOpen} placement="bottom-end">
       <MenuHandler>
@@ -103,7 +103,7 @@ export function ComplexNavbar() {
     );
   }, []);
   const singUser = useSingleUser();
-  console.log(singUser);
+  // console.log(singUser);
   return (
     <Navbar className="mx-auto max-w-screen-2xl p-2 xl:rounded-full xl:pl-6">
       <div className="relative mx-auto flex items-center justify-between text-blue-gray-900">
@@ -121,7 +121,7 @@ export function ComplexNavbar() {
         <div className="hidden xl:block">
           <NavList />
         </div>
-        {user ? (
+        {!user ? (
           <IconButton
             size="sm"
             color="blue-gray"

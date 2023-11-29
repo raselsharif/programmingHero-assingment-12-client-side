@@ -8,7 +8,6 @@ const PIChart = ({ children }) => {
   const user = useSingleUser();
   const [nonReturnable, setNonReturnable] = useState([]);
   const [returnable, setReturnable] = useState([]);
-
   const allAsset = useAllAsset();
   useEffect(() => {
     const returnable = allAsset.filter(
@@ -25,7 +24,7 @@ const PIChart = ({ children }) => {
     { name: "Returnable", value: returnable.length },
     { name: "Non-Returnable", value: nonReturnable.length },
   ];
-  console.log(data);
+  // console.log(data);
   const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
   const RADIAN = Math.PI / 180;
   const renderCustomizedLabel = ({

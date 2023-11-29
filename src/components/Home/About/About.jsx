@@ -2,7 +2,7 @@ import SectionHeader from "../../common/SectionHeader/SectionHeader";
 
 const About = () => {
   return (
-    <div className="mt-20">
+    <div className="mt-20 px-3">
       <SectionHeader subHeading={"about"} heading={"about us"} />
       <div className="max-w-2xl mx-auto">
         <p className="mb-5 text-center">

@@ -7,7 +7,7 @@ import { Card, CardBody, Typography } from "@material-tailwind/react";
 const PendingAdmin = () => {
   const user = useSingleUser();
   const [assets, setAssets] = useState([]);
-  console.log(assets);
+  // console.log(assets);
   const allAsset = useAllAsset();
   useEffect(() => {
     const myAssets = allAsset.filter(
