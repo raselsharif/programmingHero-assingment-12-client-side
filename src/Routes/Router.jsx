@@ -17,11 +17,11 @@ import CustomRequestList from "../Pages/Dashboard/Admin/CustomRequestList/Custom
 import AdminEmployeeList from "../Pages/Dashboard/Admin/AdminEmployeeList/AdminEmployeeList";
 import AdminAddEmployee from "../Pages/Dashboard/Admin/AdminAddEmployee/AdminAddEmployee";
 import Packages from "../components/Home/Packages/Packages";
-import PrivateRoutes from "./PrivateRoutes";
 import AdminAssetUpdate from "../Pages/Dashboard/Admin/AdminAssetUpdate/AdminAssetUpdate";
-import UserHome from "../Pages/Home/UserHome/UserHome";
-import HomeEmployee from "../Pages/Home/HomeEmployee/HomeEmployee";
 import HomeAdmin from "../Pages/Home/HomeAdmin/HomeAdmin";
+import HomeEmployee from "../Pages/Home/HomeEmployee/HomeEmployee";
+import Payment from "../Pages/Payment/Payment";
+import AdminRoute from "./AdminRoute";
 
 const router = createBrowserRouter([
   {
@@ -48,24 +48,9 @@ const router = createBrowserRouter([
         path: "/packages",
         element: <Packages />,
       },
-    ],
-  },
-  {
-    path: "/user-home",
-    element: (
-      <PrivateRoutes>
-        {" "}
-        <UserHome />
-      </PrivateRoutes>
-    ),
-    children: [
       {
-        path: "/user-home/employee",
-        element: <HomeEmployee />,
-      },
-      {
-        path: "/user-home/admin",
-        element: <HomeAdmin />,
+        path: "/payment",
+        element: <Payment />,
       },
     ],
   },
@@ -75,34 +60,71 @@ const router = createBrowserRouter([
     children: [
       // Admin Routes
       {
+        path: "/dashboard/admin-home",
+        element: (
+          <AdminRoute>
+            <HomeAdmin />
+          </AdminRoute>
+        ),
+      },
+      {
         path: "/dashboard/admin-asset-list",
         element: <AdminAssetList />,
       },
       {
         path: "/dashboard/admin-add-asset",
-        element: <AdminAddAsset />,
+        element: (
+          <AdminRoute>
+            <AdminAddAsset />
+          </AdminRoute>
+        ),
       },
       {
         path: "/dashboard/admin-requests",
-        element: <AdminRequestsList />,
+        element: (
+          <AdminRoute>
+            <AdminRequestsList />
+          </AdminRoute>
+        ),
       },
       {
         path: "/dashboard/custom-requests",
-        element: <CustomRequestList />,
+        element: (
+          <AdminRoute>
+            <CustomRequestList />
+          </AdminRoute>
+        ),
       },
       {
         path: "/dashboard/admin-all-employee",
-        element: <AdminEmployeeList />,
+        element: (
+          <AdminRoute>
+            <AdminEmployeeList />
+          </AdminRoute>
+        ),
       },
       {
         path: "/dashboard/admin-add-employee",
-        element: <AdminAddEmployee />,
+        element: (
+          <AdminRoute>
+            <AdminAddEmployee />
+          </AdminRoute>
+        ),
       },
       {
         path: "/dashboard/asset-update/:id",
-        element: <AdminAssetUpdate />,
+        element: (
+          <AdminRoute>
+            <AdminAssetUpdate />
+          </AdminRoute>
+        ),
       },
       // EmployeeRoutes
+
+      {
+        path: "/dashboard/employee-home",
+        element: <HomeEmployee />,
+      },
       {
         path: "/dashboard/assets-employee",
         element: <AssetsEmployee />,

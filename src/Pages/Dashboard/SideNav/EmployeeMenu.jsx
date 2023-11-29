@@ -23,7 +23,7 @@ const EmployeeMenu = () => {
   return (
     <>
       <NavLink
-        to={"/user-home"}
+        to={"/dashboard/employee-home"}
         className={({ isActive }) =>
           isActive
             ? "flex gap-2 items-center bg-black text-white transition-all duration-300 px-3 py-1 rounded-md font-medium"
@@ -89,6 +89,17 @@ const EmployeeMenu = () => {
         >
           <FaUser />
           Profile
+        </NavLink>
+        <NavLink
+          to={"/"}
+          className={({ isActive }) =>
+            isActive
+              ? "flex gap-2 items-center bg-black text-white transition-all duration-300 px-3 py-1 rounded-md font-medium"
+              : "text-black flex gap-2 items-center hover:bg-black hover:text-white transition-all duration-300 px-3 py-1 rounded-md font-medium "
+          }
+        >
+          <FaUser />
+          Main Site
         </NavLink>
         <Button onClick={handleLogOut} color="red" variant="gradient">
           Log Out

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import SectionHeader from "../../../components/common/SectionHeader/SectionHeader";
 import useSingleUser from "../../../hooks/useSingleUser";
 import useAllAsset from "../../../hooks/useAllAsset";
-import { PieChart, Pie, Cell, Label } from "recharts";
+import { PieChart, Pie, Cell, Label, Legend } from "recharts";
 
 const PIChart = ({ children }) => {
   const user = useSingleUser();
@@ -75,8 +75,8 @@ const PIChart = ({ children }) => {
               />
             ))}
           </Pie>
+          <Legend></Legend>
         </PieChart>
-        <Label content={data}></Label>
       </div>
     </div>
   );

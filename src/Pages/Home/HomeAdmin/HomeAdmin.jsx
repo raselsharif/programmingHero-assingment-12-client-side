@@ -11,8 +11,8 @@ const HomeAdmin = () => {
       <PendingAdmin />
       <TopRequested />
       <LimitedStock />
-
       <PIChart />
+      <div className="mt-20"></div>
     </div>
   );
 };

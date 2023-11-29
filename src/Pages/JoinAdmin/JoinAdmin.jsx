@@ -71,7 +71,7 @@ const JoinAdmin = ({ children }) => {
                 .then((res) => {
                   if (res.data.insertedId) {
                     toast.success("Registration Successful");
-                    navigate("/");
+                    navigate("/payment");
                   }
                   console.log(res.data);
                 })

@@ -132,8 +132,6 @@ const JoinEmployee = () => {
             <Input
               {...register("password", {
                 required: true,
-                pattern:
-                  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()\-_=+{};:,<.>])[A-Za-z\d!@#$%^&*()\-_=+{};:,<.>.]{6,}$/,
               })}
               name="password"
               label="Password"

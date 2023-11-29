@@ -32,7 +32,7 @@ function ProfileMenu() {
       });
   };
   const singUser = useSingleUser();
-  console.log();
+  console.log(singUser);
   return (
     <Menu open={isMenuOpen} handler={setIsMenuOpen} placement="bottom-end">
       <MenuHandler>
@@ -63,12 +63,16 @@ function ProfileMenu() {
       <MenuList className="flex flex-col gap-3 px-4 py-2">
         <Link
           className="hover:bg-black hover:text-white px-2 py-1 rounded-md transition-all duration-300"
-          to={"/dashboard"}
+          to={
+            singUser?.role === "admin"
+              ? "/dashboard/admin-home"
+              : "/dashboard/employee-home"
+          }
         >
           Dashboard
         </Link>
         <Link
-          className="hover:bg-red-500 hover:text-white px-2 py-1 rounded-md transition-all duration-300"
+          className="hover:bg-red-500 hover:text-white px-2 py-1 rounded-md transition-all duration-300 border-none outline-none"
           onClick={handleLogOut}
         >
           Log out
