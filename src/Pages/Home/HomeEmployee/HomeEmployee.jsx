@@ -1,9 +1,12 @@
-import SectionHeader from "../../../components/common/SectionHeader/SectionHeader";
+import useSingleUser from "../../../hooks/useSingleUser";
+import FrequentRequest from "./FrequentRequest";
 import MonthlyRequest from "./MonthlyRequest";
 import MyCustomRequest from "./MyCustomRequest";
 import MyPending from "./MyPending";
 
 const HomeEmployee = () => {
+  const user = useSingleUser();
+  console.log(user);
   return (
     <div className="mt-10">
       <h2 className="text-center text-3xl text-green-500">
@@ -12,10 +15,7 @@ const HomeEmployee = () => {
       <MyCustomRequest />
       <MyPending />
       <MonthlyRequest />
-      <div className="mt-10">
-        <SectionHeader heading={"Frequently Requested Item"} />
-        <div className="text-center">Monthly Request item will be here</div>
-      </div>
+      <FrequentRequest />
     </div>
   );
 };

@@ -10,7 +10,10 @@ import SectionHeader from "../../../../components/common/SectionHeader/SectionHe
 import { Controller, useForm } from "react-hook-form";
 import useSecureApi from "../../../../hooks/useSecureApi";
 import toast from "react-hot-toast";
+import useSingleUser from "../../../../hooks/useSingleUser";
 const AdminAddAsset = () => {
+  const user = useSingleUser();
+  console.log(user);
   const {
     reset,
     control,
@@ -29,6 +32,7 @@ const AdminAddAsset = () => {
       quantity,
       type,
       added_date: Date(),
+      owner: user?.email,
     };
     secureAPI.post("/add-asset", assetInfo).then(() => {
       toast.success("Asset added successfully");

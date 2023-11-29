@@ -16,7 +16,7 @@ const AdminMenu = () => {
   return (
     <>
       <NavLink
-        to={"/admin-home"}
+        to={"/user-home"}
         className={({ isActive }) =>
           isActive
             ? "flex gap-2 items-center bg-black text-white transition-all duration-300 px-3 py-1 rounded-md font-medium"

@@ -1,25 +1,25 @@
 import { useEffect, useState } from "react";
 import SectionHeader from "../../../components/common/SectionHeader/SectionHeader";
-import useAllAsset from "../../../hooks/useAllAsset";
 import useSingleUser from "../../../hooks/useSingleUser";
+import useAllAsset from "../../../hooks/useAllAsset";
 import { Card, CardBody, Typography } from "@material-tailwind/react";
 
-const MyPending = () => {
-  const assets = useAllAsset();
+const LimitedStock = ({ children }) => {
   const user = useSingleUser();
-  const [myAssets, setMyAssets] = useState([]);
-  console.log(myAssets);
+  const [assets, setAssets] = useState([]);
+  console.log(assets);
+  const allAsset = useAllAsset();
   useEffect(() => {
-    const myAssetsFiltered = assets.filter(
-      (asset) => user.email === asset.requested_by && asset.status === "pending"
+    const myAssets = allAsset.filter(
+      (asset) => user.email === asset.owner && asset.quantity < 10
     );
-    setMyAssets(myAssetsFiltered);
-  }, [assets, user.email]);
+    setAssets(myAssets);
+  }, [allAsset, user.email]);
   return (
     <div className="mt-20">
-      <SectionHeader heading={"My Pending Request"} />
+      <SectionHeader heading={"Limited Stock Item"} />
       <div className="text-center grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mt-10">
-        {myAssets?.map((asset) => (
+        {assets?.slice(0, 4).map((asset) => (
           <Card key={asset._id} className="w-full border-2">
             <CardBody>
               <Typography variant="h5" color="blue-gray" className="mb-2">
@@ -27,7 +27,9 @@ const MyPending = () => {
               </Typography>
               <div className="flex justify-center gap-3 flex-wrap">
                 <Typography>Type: {asset.type}</Typography>
-                <Typography>Status: {asset.status}</Typography>
+                <Typography variant="lead" color="red">
+                  Quantity: {asset.quantity}
+                </Typography>
               </div>
             </CardBody>
           </Card>
@@ -37,4 +39,4 @@ const MyPending = () => {
   );
 };
 
-export default MyPending;
+export default LimitedStock;

@@ -57,7 +57,7 @@ const JoinAdmin = ({ children }) => {
         email,
         birthDate,
         role: "admin",
-        workAt: null,
+        workAt: true,
         logo: res.data.data.display_url,
         company,
         admin_package,

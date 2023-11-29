@@ -17,9 +17,9 @@ const MyPending = () => {
   }, [assets, user.email]);
   return (
     <div className="mt-20">
-      <SectionHeader heading={"My Pending Request"} />
+      <SectionHeader heading={"My Frequent Requests"} />
       <div className="text-center grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mt-10">
-        {myAssets?.map((asset) => (
+        {myAssets?.slice(0, 4).map((asset) => (
           <Card key={asset._id} className="w-full border-2">
             <CardBody>
               <Typography variant="h5" color="blue-gray" className="mb-2">
