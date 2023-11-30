@@ -15,13 +15,14 @@ const AdminEmployeeList = () => {
     secureAPI(`/employee/${user?.email}`).then((res) => setEmployees(res.data));
   }, [secureAPI, user?.email]);
   const handleRemoveEmployee = (id) => {
-    console.log(id);
+    // console.log(id);
     const userInfo = {
       workAt: null,
       team: false,
     };
     secureAPI.put(`/add-remove-team/${id}`, userInfo).then(() => {
       toast.success("Removed to team successfully");
+      location.reload();
     });
   };
   return (

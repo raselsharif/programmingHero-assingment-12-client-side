@@ -24,7 +24,7 @@ const JoinEmployee = () => {
     const birthDate = form.date;
     const password = form.password;
     const photo = form?.photo;
-    console.log(name, email, birthDate, password);
+    // console.log(name, email, birthDate, password);
     const userInfo = {
       name,
       email,

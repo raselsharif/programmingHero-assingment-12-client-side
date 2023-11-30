@@ -6,15 +6,26 @@ import useAuth from "../../../../hooks/useAuth";
 import { useEffect, useState } from "react";
 import useSecureApi from "../../../../hooks/useSecureApi";
 import toast from "react-hot-toast";
+import useSingleUser from "../../../../hooks/useSingleUser";
 const TABLE_HEAD = ["", "#", "image", "Emp. Name", "Type", "Action"];
 
 const AdminAddEmployee = () => {
   const { user } = useAuth();
-  console.log(user);
+  // console.log(user);
+  const singleUser = useSingleUser();
+  const admin_package = singleUser?.admin_package;
+  const employeeLimit = admin_package?.split(" ").unshift();
+  // console.log(employeeLimit);
+
   const userEmail = user?.email;
   const allUsers = useAllUser();
   const [users, setUsers] = useState([]);
   const secureAPI = useSecureApi();
+  const [employees, setEmployees] = useState([]);
+  // console.log(employees);
+  useEffect(() => {
+    secureAPI(`/employee/${user?.email}`).then((res) => setEmployees(res.data));
+  }, [secureAPI, user?.email]);
   useEffect(() => {
     const filteredUser = allUsers.filter(
       (user) => user?.email !== userEmail && !user.team
@@ -28,6 +39,7 @@ const AdminAddEmployee = () => {
     };
     secureAPI.put(`/add-remove-team/${id}`, userInfo).then(() => {
       toast.success("Added to team successfully");
+      location.reload();
     });
   };
   return (
@@ -39,14 +51,14 @@ const AdminAddEmployee = () => {
           className="border py-2 px-3 rounded-md border-gray-300"
           variant="h5"
         >
-          My Employees: 5
+          My Employees: {employees.length}
         </Typography>
         <Typography
           color="blue-gray"
           className="border py-2 px-3 rounded-md border-gray-300"
           variant="h5"
         >
-          My Limit: 5
+          My Limit: {employeeLimit}
         </Typography>
         <Link to={"/packages"}>
           <Button color="green" variant="gradient">

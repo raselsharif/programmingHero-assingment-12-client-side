@@ -5,8 +5,8 @@ import MyCustomRequest from "./MyCustomRequest";
 import MyPending from "./MyPending";
 
 const HomeEmployee = () => {
-  const user = useSingleUser();
-  console.log(user);
+  // const user = useSingleUser();
+  // console.log(user);
   return (
     <div className="mt-10">
       <h2 className="text-center text-3xl text-green-500">
