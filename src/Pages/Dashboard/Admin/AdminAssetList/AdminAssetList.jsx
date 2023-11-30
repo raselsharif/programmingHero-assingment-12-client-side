@@ -3,12 +3,13 @@ import {
   Button,
   Card,
   Input,
+  MenuItem,
   Option,
   Select,
   Typography,
 } from "@material-tailwind/react";
 import useSecureApi from "../../../../hooks/useSecureApi";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 const TABLE_HEAD = [
@@ -22,13 +23,19 @@ const TABLE_HEAD = [
 ];
 const AdminAssetList = ({ children }) => {
   const [assets, setAssets] = useState([]);
-  console.log(assets);
+  const [type, setType] = useState("");
+  // console.log(type);
+  // console.log(assets);
+  const handleType = (e) => {
+    // setType(e.target.value);
+    console.log(e.target.value);
+  };
   const secureAPI = useSecureApi();
   useEffect(() => {
-    secureAPI.get("/assets").then((res) => setAssets(res.data));
+    secureAPI.get(`/assets`).then((res) => setAssets(res.data));
   }, [secureAPI]);
   const assetDeleteHandler = (id) => {
-    console.log(id);
+    // console.log(id);
     secureAPI.delete(`/asset-delete/${id}`).then(() => {
       toast.success("Deleted successfully");
     });
@@ -51,10 +58,18 @@ const AdminAssetList = ({ children }) => {
             color="gray"
             variant="standard"
             label="Returnable/non-returnable"
+            onChange={handleType}
           >
-            <Option>Returnable</Option>
-            <Option>Non-returnable</Option>
+            {/* <Option value="returnable">Returnable</Option>
+            <Option value="non-returnable">Non-returnable</Option> */}
+            <MenuItem value="returnable">Returnable</MenuItem>
+            <MenuItem value="non-returnable">Non-returnable</MenuItem>
           </Select>
+          {/* <select onChange={handleType}>
+            <option value="">Select Type</option>
+            <option>returnable</option>
+            <option>non-returnable</option>
+          </select> */}
         </div>
         <div>
           <Select color="gray" variant="standard" label="Sort by quantity">

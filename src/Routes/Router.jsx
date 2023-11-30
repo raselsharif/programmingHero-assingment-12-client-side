@@ -22,6 +22,7 @@ import HomeAdmin from "../Pages/Home/HomeAdmin/HomeAdmin";
 import HomeEmployee from "../Pages/Home/HomeEmployee/HomeEmployee";
 import Payment from "../Pages/Payment/Payment";
 import AdminRoute from "./AdminRoute";
+import PrivateRoutes from "./PrivateRoutes";
 
 const router = createBrowserRouter([
   {
@@ -56,7 +57,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <Dashboard />,
+    element: (
+      <PrivateRoutes>
+        <Dashboard />
+      </PrivateRoutes>
+    ),
     children: [
       // Admin Routes
       {
@@ -69,7 +74,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/dashboard/admin-asset-list",
-        element: <AdminAssetList />,
+        element: (
+          <AdminRoute>
+            <AdminAssetList />
+          </AdminRoute>
+        ),
       },
       {
         path: "/dashboard/admin-add-asset",
@@ -123,27 +132,51 @@ const router = createBrowserRouter([
 
       {
         path: "/dashboard/employee-home",
-        element: <HomeEmployee />,
+        element: (
+          <PrivateRoutes>
+            <HomeEmployee />
+          </PrivateRoutes>
+        ),
       },
       {
         path: "/dashboard/assets-employee",
-        element: <AssetsEmployee />,
+        element: (
+          <PrivateRoutes>
+            <AssetsEmployee />
+          </PrivateRoutes>
+        ),
       },
       {
         path: "/dashboard/request-assets",
-        element: <RequestAssetEmployee />,
+        element: (
+          <PrivateRoutes>
+            <RequestAssetEmployee />
+          </PrivateRoutes>
+        ),
       },
       {
         path: "/dashboard/request-custom",
-        element: <CustomRequestEmployee />,
+        element: (
+          <PrivateRoutes>
+            <CustomRequestEmployee />
+          </PrivateRoutes>
+        ),
       },
       {
         path: "/dashboard/my-team",
-        element: <MyTeam />,
+        element: (
+          <PrivateRoutes>
+            <MyTeam />
+          </PrivateRoutes>
+        ),
       },
       {
         path: "/dashboard/employee-profile",
-        element: <EmployeeProfile />,
+        element: (
+          <PrivateRoutes>
+            <EmployeeProfile />
+          </PrivateRoutes>
+        ),
       },
     ],
   },

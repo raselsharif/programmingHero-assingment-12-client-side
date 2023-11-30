@@ -18,15 +18,7 @@ export function DefaultSidebar() {
           {user?.name}
         </Typography>
       </div>
-      <List>
-        {user.role === "employee" ? (
-          <EmployeeMenu />
-        ) : user.role === "admin" ? (
-          <AdminMenu />
-        ) : (
-          <NormalMenu />
-        )}
-      </List>
+      <List>{user.role === "employee" ? <EmployeeMenu /> : <AdminMenu />}</List>
     </Card>
   );
 }
