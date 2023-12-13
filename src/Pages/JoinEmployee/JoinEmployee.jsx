@@ -9,7 +9,7 @@ import usePublicAPI from "../../hooks/usePublicAPI";
 
 const JoinEmployee = () => {
   const [show, setShow] = useState(false);
-  const { emailPassRegister, updateUserProfile } = useAuth();
+  const { emailPassRegister, updateUserProfile, logOut } = useAuth();
   const navigate = useNavigate();
   const {
     register,
@@ -41,7 +41,8 @@ const JoinEmployee = () => {
               .then((res) => {
                 if (res.data.insertedId) {
                   toast.success("Registration Successful");
-                  navigate("/");
+                  logOut();
+                  navigate("/login");
                 }
                 console.log(res.data);
               })

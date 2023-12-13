@@ -40,17 +40,32 @@ const AdminAssetList = ({ children }) => {
       toast.success("Deleted successfully");
     });
   };
+  const handleSearchName = (e) => {
+    console.log(e.target.value);
+  };
+  const handlePending = (e) => {
+    console.log(e);
+  };
   return (
     <div>
       <SectionHeader heading={"My Assets"} />
       <div className="mt-10  flex flex-wrap justify-center gap-5">
         <div>
-          <Input variant="standard" label="Search By Name" />
+          <Input
+            onChange={handleSearchName}
+            variant="standard"
+            label="Search By Name"
+          />
         </div>
         <div>
-          <Select color="gray" variant="standard" label="Pending/Approved">
-            <Option>Pending</Option>
-            <Option>Approved</Option>
+          <Select
+            onChange={handlePending}
+            color="gray"
+            variant="standard"
+            label="Pending/Approved"
+          >
+            <Option value="pending">Pending</Option>
+            <Option value="approved">Approved</Option>
           </Select>
         </div>
         <div>
@@ -60,16 +75,9 @@ const AdminAssetList = ({ children }) => {
             label="Returnable/non-returnable"
             onChange={handleType}
           >
-            {/* <Option value="returnable">Returnable</Option>
-            <Option value="non-returnable">Non-returnable</Option> */}
             <MenuItem value="returnable">Returnable</MenuItem>
             <MenuItem value="non-returnable">Non-returnable</MenuItem>
           </Select>
-          {/* <select onChange={handleType}>
-            <option value="">Select Type</option>
-            <option>returnable</option>
-            <option>non-returnable</option>
-          </select> */}
         </div>
         <div>
           <Select color="gray" variant="standard" label="Sort by quantity">

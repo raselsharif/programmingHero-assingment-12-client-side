@@ -22,7 +22,6 @@ const GoogleLoginButton = () => {
           .post("/user", user)
           .then((res) => {
             toast.success("Logged In Successfully");
-
             backToHome("/");
           })
           .catch((err) => {
